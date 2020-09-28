@@ -1,5 +1,5 @@
 projects:
-  beansoup:
+  4261fall2020project:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js

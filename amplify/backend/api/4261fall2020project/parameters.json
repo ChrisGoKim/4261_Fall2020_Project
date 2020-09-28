@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "4261fall2020project",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "auth4261fall2020project0f8a7d43",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
