@@ -9,6 +9,7 @@ import '@aws-amplify/ui-vue';
 import Amplify from '@aws-amplify/core'
 import { Auth } from '@aws-amplify/auth'
 import awsconfig from './aws-exports'
+import vuetify from "@/plugins/vuetify";
 
 Amplify.configure(awsconfig)
 Auth.configure(awsconfig)
@@ -18,6 +19,7 @@ Auth.configure(awsconfig)
 Vue.config.productionTip = false;
 
 new Vue({
+  vuetify,
   router,
   render: h => h(App)
 }).$mount("#app");

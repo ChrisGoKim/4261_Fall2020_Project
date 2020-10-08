@@ -6,11 +6,120 @@
         slot="sign-up"
         username-alias="username"
         :form-fields.prop="formFields"
-    ></amplify-sign-up>
+      ></amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <b>Welcome, {{user.username}}&#8205; &#8205; &#8205; &#8205; &#8205; &#8205; </b>
+      </v-radio-group>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <v-col>
+          You have 2 messages in your cloud.
+        </v-col>
+        &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; 
+        <v-btn
+        class="mx-2"
+        dark
+        large
+        color="black"
+        v-on:click="writeMessage"
+        >
+          <v-icon>mdi-plus</v-icon>
+          &#8205; New Message
+        </v-btn>
+        &#8205; &#8205; &#8205; &#8205; 
+      </v-radio-group>
+      <br><br/>
+
+      <div>
+        <v-main>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="2"
+              >
+                <v-sheet
+                  rounded="lg"
+                  min-height="268"
+                >
+                <!-- left column -->
+                </v-sheet>
+              </v-col>
+
+              <v-col
+                cols="12"
+                sm="8"
+              >
+                <v-sheet
+                  min-height="70vh"
+                  rounded="lg"
+                >
+                  <v-col cols="12">
+                    <v-card
+                      color="#385F73"
+                      dark
+                    >
+                      <v-card-title class="justify-center">
+                        Message 1
+                      </v-card-title>
+
+                      <v-card-subtitle>Description of the card goes here</v-card-subtitle>
+
+                      <v-card-actions>
+                        <v-btn
+                        outlined
+                        v-on:click="readMessage"
+                        >
+                          Read
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+
+                    <br><br/>
+
+                    <v-card
+                      color="#385F73"
+                      dark
+                    >
+                      <v-card-title class="justify-center">
+                        Message 2
+                      </v-card-title>
+
+                      <v-card-subtitle>Description of the card goes here</v-card-subtitle>
+
+                      <v-card-actions>
+                        <v-btn
+                        outlined
+                        v-on:click="readMessage"
+                        >
+                          Read
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-col>
+                </v-sheet>
+              </v-col>
+
+              <v-col
+                cols="12"
+                sm="2"
+              >
+                <v-sheet
+                  rounded="lg"
+                  min-height="268"
+                >
+                  <!-- right column -->
+                </v-sheet>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-main>
+      </div>
+      
       <amplify-sign-out></amplify-sign-out>
-      <div>Hello, {{user.username}}</div>
     </div>
   </div>
 </template>
@@ -18,7 +127,6 @@
 
 <script>
 import { onAuthUIStateChange } from '@aws-amplify/ui-components'
-
 export default {
   name: 'AuthStateApp',
   created() {
@@ -27,7 +135,7 @@ export default {
       this.user = authData;
     })
   },
-  //Where we store data or create static variables
+  // Where we store data or create static variables
   data() {
     return {
       user: undefined,
@@ -52,6 +160,14 @@ export default {
   },
   beforeDestroy() {
     return onAuthUIStateChange;
+  },
+  methods: {
+    readMessage() {
+      this.$router.push({ path: "/read" })
+    },
+    writeMessage() {
+      this.$router.push({ path: "/write" })
+    } // end of methods
   }
 }
 

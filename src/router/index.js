@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import ReadMessage from "../views/ReadMessage.vue";
+import WriteMessage from "../views/WriteMessage.vue";
 
 import Testing from "../views/Testing.vue";
 
@@ -25,7 +27,17 @@ const routes = [
     path: "/testing",
     name: "testing",
     component: Testing
-  }
+  }, 
+  {
+    path: "/read",
+    name: "read",
+    component: ReadMessage
+  },
+  {
+    path: "/write",
+    name: "write",
+    component: WriteMessage
+  },
 ];
 
 const router = new VueRouter({
