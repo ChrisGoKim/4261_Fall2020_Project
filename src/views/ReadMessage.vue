@@ -1,5 +1,5 @@
 <template>
-  <div class="write">
+  <div class="read">
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in header-text="Message in a Bottle" slot="sign-in"></amplify-sign-in>
       <amplify-sign-up
