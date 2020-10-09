@@ -138,6 +138,8 @@ export default {
     submit() {
       const messageText = document.getElementById("message-text").value;
       console.log(messageText);
+      alert("Your message has been sent!");
+      this.$router.push({ path: "/" });
     } // end of methods
   }
 };
