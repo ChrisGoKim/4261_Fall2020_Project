@@ -71,8 +71,10 @@
                         </v-card-title>
 
                         <v-card-text>
-                          Hello! This is an example message.
+
                         </v-card-text>
+
+                        <p>Hello, this is an example message.</p>
 
                         <v-card-actions>
                           <v-btn
