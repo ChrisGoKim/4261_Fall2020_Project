@@ -50,7 +50,7 @@
                           Compose Your Message
                         </v-card-title>
 
-                        <v-card-text>
+                        <v-card-text style="padding-bottom: 0px">
                           <v-text-field
                             outlined
                             counter
@@ -58,6 +58,7 @@
                             id="message-text"
                           ></v-text-field>
                           <v-textarea
+                            class="ma-0"
                             outlined
                             counter
                             placeholder="Start typing here..."
@@ -144,4 +145,7 @@ export default {
 </script>
 
 <style>
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  margin-bottom: 0px;
+}
 </style>
