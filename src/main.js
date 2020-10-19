@@ -7,6 +7,7 @@ import router from "./router";
 
 import '@aws-amplify/ui-vue';
 import Amplify from '@aws-amplify/core'
+import API from '@aws-amplify/api';
 import { Auth } from '@aws-amplify/auth'
 import awsconfig from './aws-exports'
 import vuetify from "@/plugins/vuetify";
@@ -14,7 +15,11 @@ import vuetify from "@/plugins/vuetify";
 Amplify.configure(awsconfig)
 Auth.configure(awsconfig)
 
+API.configure(awsconfig)
+
 //Vue.use(AmplifyPlugin, AmplifyModules);
+
+
 
 Vue.config.productionTip = false;
 

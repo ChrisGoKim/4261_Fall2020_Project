@@ -95,6 +95,7 @@
 
 <script>
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
+import API from '@aws-amplify/api';
 
 // imports go here
 
@@ -137,9 +138,29 @@ export default {
       this.$router.push({ path: "/" });
     },
     submit() {
+      //TESTING API GATEWAY ENDPOINT
+      const apiName = 'MiaB_1';
+      const path = '/testing'; 
+      const myInit = { // OPTIONAL
+          headers: {}, // OPTIONAL
+          response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+          queryStringParameters: {  // OPTIONAL
+          },
+      };
+
+      API
+        .get(apiName, path, myInit)
+        .then(response => {
+          alert(response.data);
+          
+        })
+        .catch(error => {
+          console.log(error.response);
+      });
+
       const messageText = document.getElementById("message-text").value;
       console.log(messageText);
-      alert("Your message has been sent!");
+      
       this.$router.push({ path: "/" });
     } // end of methods
   }
