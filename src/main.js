@@ -17,6 +17,19 @@ Auth.configure(awsconfig)
 
 API.configure(awsconfig)
 
+API.configure({
+    API: {
+        endpoints: [
+            {
+                name: "MiaB_1",
+                endpoint: "https://ck03afn91l.execute-api.us-east-1.amazonaws.com/test",
+                region: "us-east-1"
+            }
+        ]
+    }
+});
+
+
 //Vue.use(AmplifyPlugin, AmplifyModules);
 
 

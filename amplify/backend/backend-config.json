@@ -29,5 +29,6 @@
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }
-  }
+  },
+  "function": {}
 }
