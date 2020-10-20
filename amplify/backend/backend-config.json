@@ -23,5 +23,12 @@
         }
       }
     }
-  }
+  },
+  "storage": {
+    "gatewayTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "function": {}
 }

@@ -7,6 +7,7 @@ import router from "./router";
 
 import '@aws-amplify/ui-vue';
 import Amplify from '@aws-amplify/core'
+import API from '@aws-amplify/api';
 import { Auth } from '@aws-amplify/auth'
 import awsconfig from './aws-exports'
 import vuetify from "@/plugins/vuetify";
@@ -14,7 +15,24 @@ import vuetify from "@/plugins/vuetify";
 Amplify.configure(awsconfig)
 Auth.configure(awsconfig)
 
+API.configure(awsconfig)
+
+API.configure({
+    API: {
+        endpoints: [
+            {
+                name: "MiaB_1",
+                endpoint: "https://ck03afn91l.execute-api.us-east-1.amazonaws.com/test",
+                region: "us-east-1"
+            }
+        ]
+    }
+});
+
+
 //Vue.use(AmplifyPlugin, AmplifyModules);
+
+
 
 Vue.config.productionTip = false;
 
