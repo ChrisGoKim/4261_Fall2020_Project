@@ -6,20 +6,20 @@ import colors from 'vuetify/lib/util/colors'
 
 Vue.use(Vuetify);
 const opts = {
-  theme: {
-    themes: {
-      light: {
-        grey: colors.grey.lighten3, // #E53935
-      },
+    theme: {
+        themes: {
+            light: {
+                grey: colors.grey.lighten3, // #E53935
+            },
+        },
+        dark: false
     },
-    dark: false
-  },
-  options: {
-    customProperties: true
-  },
-  icons: {
-    iconfont: "mdi"
-  }
+    options: {
+        customProperties: true
+    },
+    icons: {
+        iconfont: "mdi"
+    }
 };
 
 export default new Vuetify(opts);

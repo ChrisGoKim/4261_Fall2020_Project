@@ -3,33 +3,33 @@
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in header-text="Message in a Bottle" slot="sign-in"></amplify-sign-in>
       <amplify-sign-up
-        slot="sign-up"
-        username-alias="username"
-        :form-fields.prop="formFields"
+          slot="sign-up"
+          username-alias="username"
+          :form-fields.prop="formFields"
       ></amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
       <v-radio-group row>
         <v-spacer></v-spacer>
-        <b>Welcome, {{user.username}}&#8205; &#8205; &#8205; &#8205; &#8205; &#8205; </b>
+        <b>Welcome, {{ user.username }}&#8205; &#8205; &#8205; &#8205; &#8205; &#8205; </b>
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
         <v-col>
           You have 2 messages in your cloud.
         </v-col>
-        &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; 
+        &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
-        class="mx-2"
-        dark
-        large
-        color="black"
-        v-on:click="writeMessage"
+            class="mx-2"
+            dark
+            large
+            color="black"
+            v-on:click="writeMessage"
         >
           <v-icon>mdi-plus</v-icon>
           &#8205; New Message
         </v-btn>
-        &#8205; &#8205; &#8205; &#8205; 
+        &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <br><br/>
 
@@ -38,29 +38,29 @@
           <v-container>
             <v-row>
               <v-col
-                cols="12"
-                sm="2"
+                  cols="12"
+                  sm="2"
               >
                 <v-sheet
-                  rounded="lg"
-                  min-height="268"
+                    rounded="lg"
+                    min-height="268"
                 >
-                <!-- left column -->
+                  <!-- left column -->
                 </v-sheet>
               </v-col>
 
               <v-col
-                cols="12"
-                sm="8"
+                  cols="12"
+                  sm="8"
               >
                 <v-sheet
-                  min-height="70vh"
-                  rounded="lg"
+                    min-height="70vh"
+                    rounded="lg"
                 >
                   <v-col cols="12">
                     <v-card
-                      color="#385F73"
-                      dark
+                        color="#385F73"
+                        dark
                     >
                       <v-card-title class="justify-center">
                         Message 1
@@ -70,8 +70,8 @@
 
                       <v-card-actions>
                         <v-btn
-                        outlined
-                        v-on:click="readMessage"
+                            outlined
+                            v-on:click="readMessage"
                         >
                           Read
                         </v-btn>
@@ -81,8 +81,8 @@
                     <br><br/>
 
                     <v-card
-                      color="#385F73"
-                      dark
+                        color="#385F73"
+                        dark
                     >
                       <v-card-title class="justify-center">
                         Message 2
@@ -92,8 +92,8 @@
 
                       <v-card-actions>
                         <v-btn
-                        outlined
-                        v-on:click="readMessage"
+                            outlined
+                            v-on:click="readMessage"
                         >
                           Read
                         </v-btn>
@@ -104,12 +104,12 @@
               </v-col>
 
               <v-col
-                cols="12"
-                sm="2"
+                  cols="12"
+                  sm="2"
               >
                 <v-sheet
-                  rounded="lg"
-                  min-height="268"
+                    rounded="lg"
+                    min-height="268"
                 >
                   <!-- right column -->
                 </v-sheet>
@@ -118,7 +118,7 @@
           </v-container>
         </v-main>
       </div>
-      
+
       <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
@@ -126,7 +126,8 @@
 
 
 <script>
-import { onAuthUIStateChange } from '@aws-amplify/ui-components'
+import {onAuthUIStateChange} from '@aws-amplify/ui-components'
+
 export default {
   name: 'AuthStateApp',
   created() {
@@ -141,20 +142,20 @@ export default {
       user: undefined,
       authState: undefined,
       formFields: [
-            { 
-              type: "username" 
-            },
-            { 
-              type: "email"
-              /*
-              label: 'Custom email Label',
-              placeholder: 'custom email placeholder',
-              required: true,
-              */
-            },
-            { 
-              type: 'password'
-            }            
+        {
+          type: "username"
+        },
+        {
+          type: "email"
+          /*
+          label: 'Custom email Label',
+          placeholder: 'custom email placeholder',
+          required: true,
+          */
+        },
+        {
+          type: 'password'
+        }
       ]
     }
   },
@@ -163,10 +164,10 @@ export default {
   },
   methods: {
     readMessage() {
-      this.$router.push({ path: "/read" })
+      this.$router.push({path: "/read"})
     },
     writeMessage() {
-      this.$router.push({ path: "/write" })
+      this.$router.push({path: "/write"})
     } // end of methods
   }
 }

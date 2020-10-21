@@ -8,7 +8,7 @@ import router from "./router";
 import '@aws-amplify/ui-vue';
 import Amplify from '@aws-amplify/core'
 import API from '@aws-amplify/api';
-import { Auth } from '@aws-amplify/auth'
+import {Auth} from '@aws-amplify/auth'
 import awsconfig from './aws-exports'
 import vuetify from "@/plugins/vuetify";
 
@@ -33,15 +33,13 @@ API.configure({
 //Vue.use(AmplifyPlugin, AmplifyModules);
 
 
-
 Vue.config.productionTip = false;
 
 new Vue({
-  vuetify,
-  router,
-  render: h => h(App)
+    vuetify,
+    router,
+    render: h => h(App)
 }).$mount("#app");
-
 
 
 /* Custom configuration of AWS resources can be done here.

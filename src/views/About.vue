@@ -17,7 +17,8 @@
 
 
 <script>
-import { components } from "aws-amplify-vue";
+import {components} from "aws-amplify-vue";
+
 const ListTodoQuery = `query ListTodos {
     listTodos {
       items {

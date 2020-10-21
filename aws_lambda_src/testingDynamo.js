@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Origin": "http://localhost:8080",
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
     };
@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
                 body = await dynamo.delete(JSON.parse(event.body)).promise();
                 break;
             case 'GET':
-                body = await dynamo.scan({ TableName: event.queryStringParameters.TableName }).promise();
+                body = await dynamo.scan({TableName: event.queryStringParameters.TableName}).promise();
                 break;
             case 'POST':
                 body = await dynamo.put(JSON.parse(event.body)).promise();
