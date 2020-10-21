@@ -2,20 +2,20 @@
   <div class="write">
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in
-          header-text="Message in a Bottle"
-          slot="sign-in"
+        header-text="Message in a Bottle"
+        slot="sign-in"
       ></amplify-sign-in>
       <amplify-sign-up
-          slot="sign-up"
-          username-alias="username"
-          :form-fields.prop="formFields"
+        slot="sign-up"
+        username-alias="username"
+        :form-fields.prop="formFields"
       ></amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
       <v-radio-group row>
         <v-spacer></v-spacer>
         <b
-        >Welcome, {{ user.username }}&#8205; &#8205; &#8205; &#8205; &#8205;
+          >Welcome, {{ user.username }}&#8205; &#8205; &#8205; &#8205; &#8205;
           &#8205;
         </b>
       </v-radio-group>
@@ -29,7 +29,7 @@
         </v-btn>
         &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
-      <br/><br/>
+      <br /><br />
 
       <div>
         <v-main>
@@ -52,17 +52,17 @@
 
                         <v-card-text style="padding-bottom: 0px">
                           <v-text-field
-                              outlined
-                              counter
-                              placeholder="Subject line..."
-                              id="message-subject"
+                            outlined
+                            counter
+                            placeholder="Subject line..."
+                            id="message-subject"
                           ></v-text-field>
                           <v-textarea
-                              class="ma-0"
-                              outlined
-                              counter
-                              placeholder="Start typing here..."
-                              id="message-text"
+                            class="ma-0"
+                            outlined
+                            counter
+                            placeholder="Start typing here..."
+                            id="message-body"
                           ></v-textarea>
                         </v-card-text>
 
@@ -74,7 +74,7 @@
                       </v-card>
                     </v-form>
 
-                    <br/><br/>
+                    <br /><br />
                   </v-col>
                 </v-sheet>
               </v-col>
@@ -94,8 +94,8 @@
 </template>
 
 <script>
-import {onAuthUIStateChange} from "@aws-amplify/ui-components";
-import API from '@aws-amplify/api';
+import { onAuthUIStateChange } from "@aws-amplify/ui-components";
+import API from "@aws-amplify/api";
 
 // imports go here
 
@@ -135,41 +135,39 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push({path: "/"});
+      this.$router.push({ path: "/" });
     },
     submit() {
       const messageSubject = document.getElementById("message-subject").value;
-      const messageText = document.getElementById("message-text").value;
+      const messageBody = document.getElementById("message-body").value;
       console.log(messageSubject);
-      console.log(messageText);
+      console.log(messageBody);
 
-      var params = {
-        TableName: "testing",
-        Item: {
-          "name": messageSubject,
-          "content": messageText,
-        }
+      const params = {
+        subject: messageSubject,
+        body: messageBody
       };
 
       //TESTING API GATEWAY ENDPOINT
-      const apiName = 'MiaB_1';
-      const path = '/message/send';
-      const myInit = { // OPTIONAL
+      const apiName = "MiaB_1";
+      const path = "/message/send";
+      const myInit = {
+        // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
-      API
-          .post(apiName, path, myInit)
-          .then(response => {
-            alert(response.data);
+      API.post(apiName, path, myInit)
+          // eslint-disable-next-line no-unused-vars
+        .then(response => {
+          // alert(response.data);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
 
-          })
-          .catch(error => {
-            console.log(error.response);
-          });
-
-      this.$router.push({path: "/"});
+      alert("Message sent!");
+      this.$router.push({ path: "/" });
     } // end of methods
   }
 };
