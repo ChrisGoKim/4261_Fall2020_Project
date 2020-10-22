@@ -148,7 +148,7 @@ export default {
         body: messageBody
       };
 
-      //TESTING API GATEWAY ENDPOINT
+      //USING API GATEWAY ENDPOINT
       const apiName = "MiaB_1";
       const path = "/message/send";
       const myInit = {

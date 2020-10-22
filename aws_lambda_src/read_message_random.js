@@ -3,14 +3,9 @@ const AWS = require('aws-sdk');
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
 /**
- * Sends a message into the DynamoDB database.
+ * Gets a random item from the messages table.
  *
- * HTTP POST request, body format:
- *
- * {
- *      "subject": "example subject2",
- *      "body": "example body2"
- * }
+ * https://www.amitsn.com/blog/how-to-get-a-random-item-from-dynamodb
  */
 exports.handler = async (event, context) => {
     //console.log('Received event:', JSON.stringify(event, null, 2));
@@ -19,29 +14,36 @@ exports.handler = async (event, context) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Origin": "http://localhost:8080",
-        "Access-Control-Allow-Methods": "OPTIONS,POST"
+        "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
     };
 
     try {
         switch (event.httpMethod) {
-            case 'POST':
-                const message = JSON.parse(event.body);
+            case 'GET':
+                const itemCountParams = {
+                    TableName: "messages",
+                    ProjectionExpression: "uid"
+                };
 
-                const messageSubject = message.subject;
-                const messageBody = message.body;
+                const dynamoResponse = await dynamo.scan(itemCountParams).promise();
+
+                const randomIndex = Math.floor(Math.random() * (dynamoResponse.Count));
+
+                // body = randomIndex;
+
+                const randomMsgId = dynamoResponse.Items[randomIndex].uid;
 
                 const params = {
                     TableName: "messages",
-                    Item: {
-                        "uid": context.awsRequestId,
-                        "subject": messageSubject,
-                        "body": messageBody,
+                    Key: {
+                        uid: randomMsgId
                     }
                 };
 
-                body = await dynamo.put(params).promise();
+                body = await dynamo.get(params).promise();
+
                 break;
             default:
                 throw new Error(`Unsupported method "${event.httpMethod}"`);

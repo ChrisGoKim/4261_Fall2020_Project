@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="read">
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in header-text="Message in a Bottle" slot="sign-in"></amplify-sign-in>
       <amplify-sign-up
@@ -16,7 +16,7 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <v-col>
-          You have 2 messages in your cloud.
+
         </v-col>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
@@ -24,10 +24,10 @@
             dark
             large
             color="black"
-            v-on:click="writeMessage"
+            v-on:click="goHome"
         >
-          <v-icon>mdi-plus</v-icon>
-          &#8205; New Message
+          <v-icon>mdi-home</v-icon>
+          &#8205; Return To Home
         </v-btn>
         &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
@@ -58,47 +58,39 @@
                     rounded="lg"
                 >
                   <v-col cols="12">
+
                     <v-card
                         color="#385F73"
                         dark
                     >
-                      <v-card-title class="justify-center">
-                        Message 1
+
+                      <v-card-title id="message-subject">
+                        Read Message
                       </v-card-title>
 
-                      <v-card-subtitle>Description of the card goes here</v-card-subtitle>
+                      <v-card-text align="left" id="message-body">
+                        Click the "Get Random Message" button to get a random message...
+                      </v-card-text>
 
                       <v-card-actions>
                         <v-btn
                             outlined
-                            v-on:click="readMessageRandom"
+                            v-on:click="getRandomMsg"
                         >
-                          Read
+                          Get Random Message
+                        </v-btn>
+                        <v-btn
+                            outlined
+                            v-on:click="goHome"
+                        >
+                          Close
                         </v-btn>
                       </v-card-actions>
                     </v-card>
 
                     <br><br/>
 
-                    <v-card
-                        color="#385F73"
-                        dark
-                    >
-                      <v-card-title class="justify-center">
-                        Message 2
-                      </v-card-title>
 
-                      <v-card-subtitle>Description of the card goes here</v-card-subtitle>
-
-                      <v-card-actions>
-                        <v-btn
-                            outlined
-                            v-on:click="readMessage"
-                        >
-                          Read
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
                   </v-col>
                 </v-sheet>
               </v-col>
@@ -118,15 +110,17 @@
           </v-container>
         </v-main>
       </div>
-
       <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
-</template>
 
+</template>
 
 <script>
 import {onAuthUIStateChange} from '@aws-amplify/ui-components'
+import API from "@aws-amplify/api";
+
+// imports go here
 
 export default {
   name: 'AuthStateApp',
@@ -134,6 +128,7 @@ export default {
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData;
+
     })
   },
   // Where we store data or create static variables
@@ -163,27 +158,41 @@ export default {
     return onAuthUIStateChange;
   },
   methods: {
-    readMessage() {
-      this.$router.push({path: "/read"})
+    getRandomMsg() {
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/message/read-random";
+      const myInit = {
+        // OPTIONAL
+        body: {},
+        headers: {} // OPTIONAL
+      };
+
+      API.get(apiName, path, myInit)
+          // eslint-disable-next-line no-unused-vars
+          .then(response => {
+            // alert(JSON.stringify(response, null, 2));
+            // const response_values = JSON.stringify(response, null, 2);
+            document.getElementById("message-subject").innerHTML = "Subject: " + response.Item.subject;
+            document.getElementById("message-body").innerHTML = response.Item.body;
+
+          })
+          .catch(error => {
+            console.log(error.response);
+          });
+
+      // document.getElementById("message-body").innerHTML = "aaa";
     },
-    readMessageRandom() {
-      this.$router.push({path: "/read_random"})
-    },
-    writeMessage() {
-      this.$router.push({path: "/write"})
+    goHome() {
+      this.$router.push({path: "/"})
     } // end of methods
   }
 }
-
 </script>
 
-
 <style>
-amplify-authenticator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  height: 100vh;
+.v-card__text {
+  font-size: 1.2rem !important;
+  color: white !important;
 }
 </style>

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import ReadMessage from "../views/ReadMessage.vue";
 import WriteMessage from "../views/WriteMessage.vue";
+import ReadMessageRandom from "../views/ReadMessageRandom";
 
 import Testing from "../views/Testing.vue";
 
@@ -32,6 +33,11 @@ const routes = [
         path: "/read",
         name: "read",
         component: ReadMessage
+    },
+    {
+        path: "/read_random",
+        name: "read_random",
+        component: ReadMessageRandom
     },
     {
         path: "/write",
