@@ -118,7 +118,7 @@
 
 <script>
 import {onAuthUIStateChange} from '@aws-amplify/ui-components'
-import API from "@aws-amplify/api";
+// import API from "@aws-amplify/api";
 
 // imports go here
 
@@ -160,26 +160,30 @@ export default {
   methods: {
     getRandomMsg() {
       //USING API GATEWAY ENDPOINT
-      const apiName = "MiaB_1";
-      const path = "/message/read-random";
-      const myInit = {
-        // OPTIONAL
-        body: {},
-        headers: {} // OPTIONAL
-      };
+      // const apiName = "MiaB_1";
+      // const path = "/message/read-random";
+      // const myInit = {
+      //   // OPTIONAL
+      //   body: {},
+      //   headers: {} // OPTIONAL
+      // };
 
-      API.get(apiName, path, myInit)
-          // eslint-disable-next-line no-unused-vars
-          .then(response => {
-            // alert(JSON.stringify(response, null, 2));
-            // const response_values = JSON.stringify(response, null, 2);
-            document.getElementById("message-subject").innerHTML = "Subject: " + response.Item.subject;
-            document.getElementById("message-body").innerHTML = response.Item.body;
+      // API.get(apiName, path, myInit)
+      //     // eslint-disable-next-line no-unused-vars
+      //     .then(response => {
+      //       // alert(JSON.stringify(response, null, 2));
+      //       // const response_values = JSON.stringify(response, null, 2);
+      //       document.getElementById("message-subject").innerHTML = "Subject: " + response.Item.subject;
+      //       document.getElementById("message-body").innerHTML = response.Item.body;
 
-          })
-          .catch(error => {
-            console.log(error.response);
-          });
+      //     })
+      //     .catch(error => {
+      //       console.log(error.response);
+      //     });
+
+      let savedLetters = this.$store.state.savedLetters
+      document.getElementById("message-subject").innerHTML = savedLetters[0].subject
+      document.getElementById("message-body").innerHTML = savedLetters[0].body
 
       // document.getElementById("message-body").innerHTML = "aaa";
     },

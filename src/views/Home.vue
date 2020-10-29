@@ -15,10 +15,6 @@
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
-        <v-col>
-          You have 2 messages in your cloud.
-        </v-col>
-        &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
             class="mx-2"
             dark
@@ -131,6 +127,7 @@ import {onAuthUIStateChange} from '@aws-amplify/ui-components'
 export default {
   name: 'AuthStateApp',
   created() {
+    this.getLetters();
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData;
@@ -171,7 +168,13 @@ export default {
     },
     writeMessage() {
       this.$router.push({path: "/write"})
-    } // end of methods
+    },
+    getLetters() {
+        // var savedLetters = this.$store.state.savedLetters;
+        // get letters from API
+        this.$store.commit('saveLetter', [{subject: 'test subject', body: 'test body'}])
+        console.log(this.$store.state)
+     }// end of methods
   }
 }
 
