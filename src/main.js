@@ -5,42 +5,39 @@ import router from "./router";
 //import Amplify, * as AmplifyModules from 'aws-amplify'
 //import { AmplifyPlugin } from 'aws-amplify-vue'
 
-import '@aws-amplify/ui-vue';
-import Amplify from '@aws-amplify/core'
-import API from '@aws-amplify/api';
-import {Auth} from '@aws-amplify/auth'
-import awsconfig from './aws-exports'
+import "@aws-amplify/ui-vue";
+import Amplify from "@aws-amplify/core";
+import API from "@aws-amplify/api";
+import { Auth } from "@aws-amplify/auth";
+import awsconfig from "./aws-exports";
 import vuetify from "@/plugins/vuetify";
 
-Amplify.configure(awsconfig)
-Auth.configure(awsconfig)
+Amplify.configure(awsconfig);
+Auth.configure(awsconfig);
 
-API.configure(awsconfig)
+API.configure(awsconfig);
 
 API.configure({
-    API: {
-        endpoints: [
-            {
-                name: "MiaB_1",
-                endpoint: "https://ck03afn91l.execute-api.us-east-1.amazonaws.com/test",
-                region: "us-east-1"
-            }
-        ]
-    }
+  API: {
+    endpoints: [
+      {
+        name: "MiaB_1",
+        endpoint: "https://ck03afn91l.execute-api.us-east-1.amazonaws.com/test",
+        region: "us-east-1",
+      },
+    ],
+  },
 });
 
-
 //Vue.use(AmplifyPlugin, AmplifyModules);
-
 
 Vue.config.productionTip = false;
 
 new Vue({
-    vuetify,
-    router,
-    render: h => h(App)
+  vuetify,
+  router,
+  render: (h) => h(App),
 }).$mount("#app");
-
 
 /* Custom configuration of AWS resources can be done here.
 import Amplify, { Auth } from 'aws-amplify';
