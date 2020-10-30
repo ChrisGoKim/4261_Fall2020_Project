@@ -147,8 +147,8 @@ export default {
     submit() {
       const messageSubject = document.getElementById("message-subject").value;
       const messageBody = document.getElementById("message-body").value;
-      console.log(messageSubject);
-      console.log(messageBody);
+      //console.log(messageSubject);
+      //console.log(messageBody);
 
       const params = {
         subject: messageSubject,
@@ -170,7 +170,8 @@ export default {
           // alert(response.data);
         })
         .catch(error => {
-          console.log(error.response);
+          alert(error.data)
+          //console.log(error.response);
         });
 
       alert("Message sent!");
