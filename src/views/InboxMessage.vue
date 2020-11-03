@@ -1,5 +1,5 @@
 <template>
-  <div class="read">
+  <div class="inbox">
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in
         header-text="Message in a Bottle"
@@ -14,10 +14,15 @@
     <div v-if="authState === 'signedin' && user">
       <v-radio-group row>
         <v-spacer></v-spacer>
-        <b style="font-family: Quicksand;"
-          >Welcome, {{ user.username }}&#8205; &#8205; &#8205; &#8205; &#8205;
-          &#8205;
-        </b>
+        <v-btn
+          style="font-family: Quicksand;"
+          class="mx-2"
+          dark
+          large
+          v-on:click="openSettings"
+        >
+          <v-icon>mdi-wrench</v-icon>
+        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
@@ -136,7 +141,10 @@ export default {
   methods: {
     goHome() {
       this.$router.push({ path: "/" });
-    } // end of methods
+    },
+    openSettings() {
+      this.$router.push({ path: "/settings" });
+    }, // end of methods
   }
 };
 </script>

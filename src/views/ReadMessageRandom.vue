@@ -6,7 +6,7 @@ v-btn {
 </style>
 
 <template>
-  <div class="read">
+  <div class="read_random">
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in
         header-text="Message in a Bottle"
@@ -21,10 +21,16 @@ v-btn {
     <div v-if="authState === 'signedin' && user">
       <v-radio-group row>
         <v-spacer></v-spacer>
-        <b style="font-family: Quicksand;"
-          >Welcome, {{ user.username }}&#8205; &#8205; &#8205; &#8205; &#8205;
-          &#8205;
-        </b>
+        <v-spacer></v-spacer>
+        <v-btn
+          style="font-family: Quicksand;"
+          class="mx-2"
+          dark
+          large
+          v-on:click="openSettings"
+        >
+          <v-icon>mdi-wrench</v-icon>
+        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
@@ -193,6 +199,9 @@ export default {
     },
     goHome() {
       this.$router.push({ path: "/" });
+    },
+    openSettings() {
+      this.$router.push({ path: "/settings" });
     },
     reply() {
       //Keep old subject

@@ -19,13 +19,22 @@
     <div v-if="authState === 'signedin' && user">
       <v-radio-group row style="font-family: Quicksand;">
         <v-spacer></v-spacer>
-        <b
-          >Welcome, {{ user.username }}&#8205; &#8205; &#8205; &#8205; &#8205;
-          &#8205;
-        </b>
+        <v-spacer></v-spacer>
+        <v-btn
+          style="font-family: Quicksand;"
+          class="mx-2"
+          dark
+          large
+          v-on:click="openSettings"
+        >
+          <v-icon>mdi-wrench</v-icon>
+        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
+      </v-radio-group>
+      <v-radio-group row>
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
+        <p>&#8205; &#8205; &#8205;</p>
         <v-btn
           style="font-family: Quicksand;"
           class="mx-2"
@@ -36,7 +45,37 @@
           <v-icon>mdi-plus</v-icon>
           &#8205; New Message
         </v-btn>
-        &#8205; &#8205; &#8205; &#8205;
+        <v-spacer></v-spacer>
+      </v-radio-group>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <p>&#8205; &#8205; &#8205;</p>
+        <v-btn
+          style="font-family: Quicksand;"
+          class="mx-2"
+          dark
+          large
+          v-on:click="readMessageRandom"
+        >
+          <v-icon>mdi-cached</v-icon>
+          &#8205; Get Random Message
+        </v-btn>
+        <v-spacer></v-spacer>
+      </v-radio-group>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <p>&#8205; &#8205; &#8205;</p>
+        <v-btn
+          style="font-family: Quicksand;"
+          class="mx-2"
+          dark
+          large
+          v-on:click="readMessage"
+        >
+          <v-icon>mdi-format-list-bulleted-square</v-icon>
+          &#8205; View Inbox
+        </v-btn>
+        <v-spacer></v-spacer>
       </v-radio-group>
       <br />
 
@@ -44,60 +83,22 @@
         <v-main>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
+              <v-col cols="12" sm="5">
+                <v-sheet rounded="lg" min-height="50vh">
                   <!-- left column -->
                 </v-sheet>
               </v-col>
 
-              <v-col cols="12" sm="8">
-                <v-sheet min-height="70vh" rounded="lg">
+              <v-col cols="12" sm="2">
+                <v-sheet min-height="50vh" rounded="lg">
                   <v-col cols="12">
-                    <v-card color="#385F73" dark>
-                      <v-card-title
-                        style="font-family: 'Dancing Script', cursive;"
-                        class="justify-center"
-                      >
-                        Message 1
-                      </v-card-title>
-
-                      <v-card-subtitle style="font-family: 'Quicksand'"
-                        >Description of the card goes here</v-card-subtitle
-                      >
-
-                      <v-card-actions>
-                        <v-btn color="#1f99bf" v-on:click="readMessageRandom">
-                          Read
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-
-                    <br /><br />
-
-                    <v-card color="#385F73" dark>
-                      <v-card-title
-                        style="font-family: 'Dancing Script', cursive;"
-                        class="justify-center"
-                      >
-                        Message 2
-                      </v-card-title>
-
-                      <v-card-subtitle style="font-family: 'Quicksand'"
-                        >Description of the card goes here</v-card-subtitle
-                      >
-
-                      <v-card-actions>
-                        <v-btn color="#1f99bf" v-on:click="readMessage">
-                          Read
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
+                    <amplify-sign-out></amplify-sign-out>
                   </v-col>
                 </v-sheet>
               </v-col>
 
-              <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
+              <v-col cols="12" sm="5">
+                <v-sheet rounded="lg" min-height="50vh">
                   <!-- right column -->
                 </v-sheet>
               </v-col>
@@ -105,8 +106,6 @@
           </v-container>
         </v-main>
       </div>
-
-      <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
 </template>
@@ -151,10 +150,13 @@ export default {
   },
   methods: {
     readMessage() {
-      this.$router.push({ path: "/read" });
+      this.$router.push({ path: "/inbox" });
     },
     readMessageRandom() {
       this.$router.push({ path: "/read_random" });
+    },
+    openSettings() {
+      this.$router.push({ path: "/settings" });
     },
     writeMessage() {
       this.$router.push({ path: "/write" });

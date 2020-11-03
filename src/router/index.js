@@ -1,11 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import ReadMessage from "../views/ReadMessage.vue";
+import InboxMessage from "../views/InboxMessage.vue";
 import WriteNewMessage from "../views/WriteNewMessage.vue";
 import ReadMessageRandom from "../views/ReadMessageRandom";
-
-import Testing from "../views/Testing.vue";
+import Settings from "../views/Settings.vue";
 
 Vue.use(VueRouter);
 
@@ -25,14 +24,14 @@ const routes = [
             import(/* webpackChunkName: "about" */ "../views/About.vue")
     },
     {
-        path: "/testing",
-        name: "testing",
-        component: Testing
+        path: "/settings",
+        name: "settings",
+        component: Settings
     },
     {
-        path: "/read",
-        name: "read",
-        component: ReadMessage
+        path: "/inbox",
+        name: "inbox",
+        component: InboxMessage
     },
     {
         path: "/read_random",
