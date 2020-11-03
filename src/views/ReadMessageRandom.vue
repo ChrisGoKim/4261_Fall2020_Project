@@ -133,6 +133,11 @@ export default {
     return {
       user: undefined,
       authState: undefined,
+      uid: undefined,
+      subject: undefined,
+      body: undefined,
+      originalSender: undefined,
+      receiverQueue: undefined,
       formFields: [
         {
           type: "username"
@@ -170,19 +175,83 @@ export default {
         .then(response => {
           // alert(JSON.stringify(response, null, 2));
           // const response_values = JSON.stringify(response, null, 2);
-          document.getElementById("message-subject").innerHTML =
-            "Subject: " + response.Item.subject;
-          document.getElementById("message-body").innerHTML =
-            response.Item.body;
+          document.getElementById("message-subject").innerHTML = "Subject: " + response.Item.subject;
+          document.getElementById("message-body").innerHTML = response.Item.body;
+          this.uid = response.Item.uid;
+          this.subject = response.Item.subject;
+          this.body = response.Item.body;
+          this.originalSender = response.Item.originalSender;
+
+
         })
         .catch(error => {
           console.log(error.response);
         });
 
-      // document.getElementById("message-body").innerHTML = "aaa";
+      //Get the sender of the read message(the new recipeint if a reply is made) message queue
+      this.getReceiversQueue()
     },
     goHome() {
       this.$router.push({ path: "/" });
+    },
+    reply() {
+      //Keep old subject
+      const messageSubject = document.getElementById("message-subject").value;
+      //Appending the reply onto the previous message
+      const messageBody = this.body + "--->" + document.getElementById("message-body").value;
+
+      //Creating a new message here so the sender should be SELF while the receiver should be the sender of the GET message
+      const params = {
+        subject: messageSubject,
+        body: messageBody,
+        originalSender : this.user,
+        targetedReceiver : this.originalSender,
+        uid : this.uid,
+        receiverQ : this.receiverQueue
+      };
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/message/reply";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.post(apiName, path, myInit)
+        .then(response => {
+          response.data
+        })
+        .catch(error => {
+          alert(error.data)
+        });
+
+      alert("Message sent!");
+      this.$router.push({ path: "/" });
+    },
+    getReceiversQueue() {
+      //Parameter for the user who is getting the reply added to their queue
+      const params = {
+        sub: this.originalSender
+      }
+
+      const apiName = "MiaB_1";
+      const path = "/message/read-user-queue";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.get(apiName, path, myInit)
+        .then(response => {
+
+          this.receiverQueue = response.Item.receiverQueue
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
     } // end of methods
   }
 };

@@ -152,7 +152,8 @@ export default {
 
       const params = {
         subject: messageSubject,
-        body: messageBody
+        body: messageBody,
+        sender: this.user
       };
 
       //USING API GATEWAY ENDPOINT

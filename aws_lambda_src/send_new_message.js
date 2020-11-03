@@ -13,8 +13,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
  * }
  */
 exports.handler = async (event, context) => {
-    //console.log('Received event:', JSON.stringify(event, null, 2));
-
+    //Metadata
     let body;
     let statusCode = '200';
     const headers = {
@@ -23,21 +22,29 @@ exports.handler = async (event, context) => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "OPTIONS,POST"
     };
-
+    
     try {
         switch (event.httpMethod) {
             case 'POST':
                 const message = JSON.parse(event.body);
-
+                
+                //Gets the metadata from event
+                const sender = message.sender.attributes.sub
+                
+                //Gets the content of the event body defined in Vue
                 const messageSubject = message.subject;
                 const messageBody = message.body;
 
+                //Creates parameter based off of previous values and empty values
                 const params = {
                     TableName: "messages",
                     Item: {
                         "uid": context.awsRequestId,
                         "subject": messageSubject,
                         "body": messageBody,
+                        "readCounter" : 0,
+                        "originalSender" : sender,
+                        "targetedReceiver" : ""
                     }
                 };
 
