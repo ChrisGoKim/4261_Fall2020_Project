@@ -55,6 +55,8 @@ v-btn {
         <v-main>
           <v-container>
             <v-row>
+
+              <!-- START OF READ MESSAGE -->
               <v-col cols="12" sm="2">
                 <v-sheet rounded="lg" min-height="268">
                   <!-- left column -->
@@ -62,7 +64,7 @@ v-btn {
               </v-col>
 
               <v-col cols="12" sm="8">
-                <v-sheet min-height="70vh" rounded="lg">
+                <v-sheet min-height="15vh" rounded="lg">
                   <v-col cols="12">
                     <v-card color="#385F73" dark>
                       <v-card-title
@@ -111,13 +113,69 @@ v-btn {
                   <!-- right column -->
                 </v-sheet>
               </v-col>
+
+
+              <!-- START OF COMPOSE MESSAGE -->
+              <v-col cols="12" sm="2">
+                <v-sheet rounded="lg" min-height="100">
+                  <!-- left column -->
+                </v-sheet>
+              </v-col>
+
+              <v-col cols="12" sm="8">
+                <v-sheet min-height="30vh" rounded="lg">
+                  <v-col cols="12">
+                    <v-form ref="form">
+                      <v-card color="#385F73" dark>
+                        <v-card-title class="justify-center">
+                          Compose Your Message
+                        </v-card-title>
+
+                        <v-card-text style="padding-bottom: 0px">
+                          <v-text-field
+                            outlined
+                            counter
+                            placeholder="Subject line..."
+                            id="message-subject"
+                          ></v-text-field>
+                          <v-textarea
+                            class="ma-0"
+                            outlined
+                            counter
+                            placeholder="Start typing here..."
+                            id="message-body"
+                          ></v-textarea>
+                        </v-card-text>
+
+                        <v-card-actions v-if="bGotMessage">
+                          <v-btn outlined v-on:click="reply">
+                            Send
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-form>
+
+                    <br /><br />
+                  </v-col>
+                </v-sheet>
+              </v-col>
+
+              <v-col cols="12" sm="2">
+                <v-sheet rounded="lg" min-height="100">
+                  <!-- right column -->
+                </v-sheet>
+              </v-col>
             </v-row>
+
           </v-container>
+          
         </v-main>
       </div>
       <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
+
+  
 </template>
 
 <script>
@@ -144,6 +202,7 @@ export default {
       body: undefined,
       originalSender: undefined,
       receiverQueue: undefined,
+      bGotMessage: false,
       formFields: [
         {
           type: "username"
@@ -195,7 +254,9 @@ export default {
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
-      this.getReceiversQueue()
+      //this.getReceiversQueue();
+      //Allows user to send their reply message
+      this.bGotMessage = true;
     },
     goHome() {
       this.$router.push({ path: "/" });
@@ -255,7 +316,6 @@ export default {
 
       API.get(apiName, path, myInit)
         .then(response => {
-
           this.receiverQueue = response.Item.receiverQueue
         })
         .catch(error => {
