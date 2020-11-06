@@ -44,6 +44,26 @@ exports.handler = async (event, context) => {
 
                 body = await dynamo.get(params).promise();
 
+                var readCounter =  body.Item.readCounter;
+                if (!readCounter) {
+                    readCounter = 0;
+                }
+                readCounter = readCounter + 1;
+
+                const params_update = {
+                    TableName: "messages",
+                    Key:{
+                        uid: randomMsgId
+                    },
+                    UpdateExpression: "set readCounter = :r",
+                    ExpressionAttributeValues:{
+                        ":r": readCounter
+                    },
+                    ReturnValues:"UPDATED_NEW"
+                };
+
+                await dynamo.update(params_update).promise();
+
                 break;
             default:
                 throw new Error(`Unsupported method "${event.httpMethod}"`);
