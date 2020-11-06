@@ -46,23 +46,33 @@ exports.handler = async (event, context) => {
 
                 var readCounter =  body.Item.readCounter;
                 if (!readCounter) {
-                    readCounter = 0;
+                    readCounter = 1;
+                } else {
+                    readCounter = readCounter + 1;
                 }
-                readCounter = readCounter + 1;
 
-                const params_update = {
-                    TableName: "messages",
-                    Key:{
-                        uid: randomMsgId
-                    },
-                    UpdateExpression: "set readCounter = :r",
-                    ExpressionAttributeValues:{
-                        ":r": readCounter
-                    },
-                    ReturnValues:"UPDATED_NEW"
-                };
-
-                await dynamo.update(params_update).promise();
+                if (readCounter < 10) {
+                    const params_update = {
+                        TableName: "messages",
+                        Key:{
+                            uid: randomMsgId
+                        },
+                        UpdateExpression: "set readCounter = :r",
+                        ExpressionAttributeValues:{
+                            ":r": readCounter
+                        },
+                        ReturnValues:"UPDATED_NEW"
+                    };
+                    await dynamo.update(params_update).promise();
+                } else {
+                    const params_delete = {
+                        TableName: "messages",
+                        Key:{
+                            uid: randomMsgId
+                        }
+                    };
+                    await dynamo.delete(params_delete).promise();
+                }
 
                 break;
             default:
