@@ -21,8 +21,8 @@
           large
           v-on:click="openSettings"
         >
-          <v-icon>mdi-wrench</v-icon>
-        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
+          <v-icon>mdi-wrench</v-icon> </v-btn
+        >&#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
@@ -144,7 +144,7 @@ export default {
     },
     openSettings() {
       this.$router.push({ path: "/settings" });
-    }, // end of methods
+    } // end of methods
   }
 };
 </script>

@@ -1,24 +1,19 @@
 <template>
   <div class="basic-button">
-    <button v-on:click="count++">
-      You clicked me {{ count }} times.
-    </button>
+    <button v-on:click="count++">You clicked me {{ count }} times.</button>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'BasicButton',
+  name: "BasicButton",
   data() {
     return {
       count: 0
-    }
+    };
   }
-}
-
+};
 </script>
-
 
 <style>
 .demo {

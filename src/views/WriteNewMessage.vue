@@ -21,8 +21,8 @@
           large
           v-on:click="openSettings"
         >
-          <v-icon>mdi-wrench</v-icon>
-        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
+          <v-icon>mdi-wrench</v-icon> </v-btn
+        >&#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
@@ -179,7 +179,7 @@ export default {
           // alert(response.data);
         })
         .catch(error => {
-          alert(error.data)
+          alert(error.data);
           //console.log(error.response);
         });
 

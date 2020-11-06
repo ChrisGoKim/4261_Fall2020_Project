@@ -66,17 +66,16 @@ export default {
           type: "password"
         }
       ]
-    }
+    };
   },
   methods: {
     goHome() {
       this.$router.push({ path: "/" });
-    },
+    }
   }
-}
+};
 </script>
 
 <style>
 @import "../components/design/rowStyle.css";
-
 </style>

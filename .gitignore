@@ -35,3 +35,11 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+
+# Cordova
+/src-cordova/platforms
+/src-cordova/plugins
+/public/cordova.js
+/./platforms
+/./plugins
+/public/cordova.js

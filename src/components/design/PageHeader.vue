@@ -5,14 +5,11 @@
 </template>
 
 <script>
-
 export default {
-  name: 'PageHeader',
-  props: ['text']
-}
-
+  name: "PageHeader",
+  props: ["text"]
+};
 </script>
-
 
 <style>
 .page-header {

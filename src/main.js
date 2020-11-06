@@ -23,10 +23,10 @@ API.configure({
       {
         name: "MiaB_1",
         endpoint: "https://ck03afn91l.execute-api.us-east-1.amazonaws.com/test",
-        region: "us-east-1",
-      },
-    ],
-  },
+        region: "us-east-1"
+      }
+    ]
+  }
 });
 
 //Vue.use(AmplifyPlugin, AmplifyModules);
@@ -36,7 +36,7 @@ Vue.config.productionTip = false;
 new Vue({
   vuetify,
   router,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount("#app");
 
 /* Custom configuration of AWS resources can be done here.
