@@ -17,7 +17,7 @@
       ></amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
-      <v-radio-group row style="font-family: Quicksand;">
+      <v-radio-group row>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-btn
@@ -28,9 +28,21 @@
           v-on:click="openSettings"
         >
           <v-icon>mdi-wrench</v-icon>
-        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
+        </v-btn>
+        &#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-btn
+          style="font-family: Quicksand;"
+          class="mx-2"
+          dark
+          large
+          v-on:click="deleteUser"
+          >Delete user</v-btn
+        >
+        &#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
@@ -113,6 +125,7 @@
 
 <script>
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
+import API from "@aws-amplify/api";
 
 export default {
   name: "AuthStateApp",
@@ -149,6 +162,31 @@ export default {
     return onAuthUIStateChange;
   },
   methods: {
+    deleteUser() {
+      const params = {
+        username: "username"
+      };
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/user/delete-user";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.post(apiName, path, myInit)
+        .then(response => {
+          response.data;
+        })
+        .catch(error => {
+          alert(error);
+        });
+
+      alert("User deleted!");
+      this.$router.push({ path: "/" });
+    },
     readMessage() {
       this.$router.push({ path: "/inbox" });
     },
