@@ -255,7 +255,7 @@ export default {
           this.originalSender = response.Item.originalSender;
         })
         .catch(error => {
-          console.log(error.response);
+          alert(error.response);
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
@@ -290,7 +290,7 @@ export default {
           this.receiverQueue = response.Item.receiverQueue
         })
         .catch(error => {
-          console.log(error.response);
+          alert(error.response);
         });
     },
     reply() {
