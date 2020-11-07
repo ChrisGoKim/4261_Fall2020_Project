@@ -128,7 +128,7 @@ v-btn {
                     <v-form ref="form">
                       <v-card color="#385F73" dark>
                         <v-card-title class="justify-center">
-                          Compose Your Message
+                          Compose Your Reply
                         </v-card-title>
 
                         <v-card-text style="padding-bottom: 0px">
@@ -136,14 +136,14 @@ v-btn {
                             outlined
                             counter
                             placeholder="Subject line..."
-                            id="message-subject"
+                            id="message-subject-reply"
                           ></v-text-field>
                           <v-textarea
                             class="ma-0"
                             outlined
                             counter
                             placeholder="Start typing here..."
-                            id="message-body"
+                            id="message-body-reply"
                           ></v-textarea>
                         </v-card-text>
 
@@ -246,15 +246,13 @@ export default {
           this.subject = response.Item.subject;
           this.body = response.Item.body;
           this.originalSender = response.Item.originalSender;
-
-
         })
         .catch(error => {
           console.log(error.response);
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
-      //this.getReceiversQueue();
+ 
       //Allows user to send their reply message
       this.bGotMessage = true;
     },
@@ -264,20 +262,38 @@ export default {
     openSettings() {
       this.$router.push({ path: "/settings" });
     },
-    reply() {
-      //Keep old subject
-      const messageSubject = document.getElementById("message-subject").value;
-      //Appending the reply onto the previous message
-      const messageBody = this.body + "--->" + document.getElementById("message-body").value;
+    updateReceiversQueue() {
+      //Parameter for the user who is getting the reply added to their queue
+      const params = {
+        receiverSub: this.originalSender,
+        uid: this.uid
+      }
 
-      //Creating a new message here so the sender should be SELF while the receiver should be the sender of the GET message
+      const apiName = "MiaB_1";
+      const path = "/message/read-user-queue";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.put(apiName, path, myInit)
+        .then(response => {
+          this.receiverQueue = response.Item.receiverQueue
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    },
+    reply() {
+      const messageSubject = "Re: " + this.subject;
+      const messageBody = this. body + "--->" + document.getElementById("message-body-reply").value;
+
       const params = {
         subject: messageSubject,
         body: messageBody,
-        originalSender : this.user,
-        targetedReceiver : this.originalSender,
-        uid : this.uid,
-        receiverQ : this.receiverQueue
+        sender: this.user,
+        receiver : this.originalSender
       };
 
       //USING API GATEWAY ENDPOINT
@@ -290,37 +306,19 @@ export default {
       };
 
       API.post(apiName, path, myInit)
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
-          response.data
+          // alert(response.data);
         })
         .catch(error => {
           alert(error.data)
+          //console.log(error.response);
         });
+
+      this.updateReceiversQueue()
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
-    },
-    getReceiversQueue() {
-      //Parameter for the user who is getting the reply added to their queue
-      const params = {
-        sub: this.originalSender
-      }
-
-      const apiName = "MiaB_1";
-      const path = "/message/read-user-queue";
-      const myInit = {
-        // OPTIONAL
-        body: params,
-        headers: {} // OPTIONAL
-      };
-
-      API.get(apiName, path, myInit)
-        .then(response => {
-          this.receiverQueue = response.Item.receiverQueue
-        })
-        .catch(error => {
-          console.log(error.response);
-        });
     } // end of methods
   }
 };

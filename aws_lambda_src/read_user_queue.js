@@ -2,38 +2,47 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
+//READS MESSAGE QUEUE FOR A USER
+//DOES NOT HANDLE THE DNE CASE!
+
 exports.handler = async (event, context) => {
 
     let body;
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers": "Origin, Content-Type",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+        "Access-Control-Allow-Methods": "OPTIONS,PUT,GET"
     };
 
     try {
         switch (event.httpMethod) {
-            case 'GET':
-                const itemCountParams = {
-                    TableName: "User",
-                    ProjectionExpression: "sub"
-                };
-                
-                const dynamoResponse = await dynamo.scan(itemCountParams).promise();
-                
+            case 'PUT':
                 const message = JSON.parse(event.body);
-
-
-                const params = {
+                const receiver = message.receiverSub
+                
+                const userParams = {
                     TableName: "User",
                     Key: {
-                        sub: message.sub
+                        Username : receiver
+                    }
+                };
+                
+                q = await dynamo.get(userParams).promise();
+                
+                var updatedQ = q.Item.queue;
+                updatedQ = updatedQ + "," + message.uid;
+
+                const params_update = {
+                    TableName: "User",
+                    Item: {
+                        "Username": receiver,
+                        "queue": updatedQ
                     }
                 };
 
-                body = await dynamo.get(params).promise();
+                body = await dynamo.put(params_update).promise();
 
                 break;
             default:
