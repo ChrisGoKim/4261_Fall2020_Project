@@ -10,16 +10,16 @@ const opts = {
     themes: {
       light: {
         // grey: colors.grey.lighten3, // #E53935
-        primary: "#1f99bf",
-      },
-    },
+        primary: "#1f99bf"
+      }
+    }
   },
   options: {
-    customProperties: true,
+    customProperties: true
   },
   icons: {
-    iconfont: "mdi",
-  },
+    iconfont: "mdi"
+  }
 };
 
 export default new Vuetify(opts);

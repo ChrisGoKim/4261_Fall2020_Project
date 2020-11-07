@@ -2,16 +2,6 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-/**
- * Sends a message into the DynamoDB database.
- *
- * HTTP POST request, body format:
- *
- * {
- *      "subject": "example subject2",
- *      "body": "example body2"
- * }
- */
 exports.handler = async (event, context) => {
     //Metadata
     let body;
@@ -22,18 +12,26 @@ exports.handler = async (event, context) => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "OPTIONS,POST"
     };
-    
+
     try {
         switch (event.httpMethod) {
             case 'POST':
                 const message = JSON.parse(event.body);
-                
+
                 //Gets the metadata from event
-                const sender = message.sender.attributes.sub
-                
+                const sender = message.sender.attributes.sub;
+
                 //Gets the content of the event body defined in Vue
-                const messageSubject = message.subject;
-                const messageBody = message.body;
+                var messageSubject = message.subject;
+                var messageBody = message.body;
+
+                const offensiveWords = ["YmFzdGFyZA==", "Yml0Y2g=", "Y3VudA==", "ZmFnZ290", "ZnVjaw==", "bmlnZ2Vy", "c2hpdA==", "c2x1dA==", "d2hvcmU="];
+
+                for (var i = 0; i < offensiveWords.length; i++) {
+                    var offensiveWord = Buffer.from(offensiveWords[i], 'base64').toString();
+                    messageSubject = messageSubject.replace(offensiveWord, "[redacted]");
+                    messageBody = messageBody.replace(offensiveWord, "[redacted]");
+                }
 
                 //Creates parameter based off of previous values and empty values
                 const params = {

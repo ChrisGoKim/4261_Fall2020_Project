@@ -24,8 +24,16 @@ exports.handler = async (event, context) => {
                 const receiver = message.receiver
                 
                 //Gets the content of the event body defined in Vue
-                const messageSubject = message.subject;
-                const messageBody = message.body;
+                var messageSubject = message.subject;
+                var messageBody = message.body;
+
+                const offensiveWords = ["YmFzdGFyZA==", "Yml0Y2g=", "Y3VudA==", "ZmFnZ290", "ZnVjaw==", "bmlnZ2Vy", "c2hpdA==", "c2x1dA==", "d2hvcmU="];
+
+                for (var i = 0; i < offensiveWords.length; i++) {
+                    var offensiveWord = Buffer.from(offensiveWords[i], 'base64').toString();
+                    messageSubject = messageSubject.replace(offensiveWord, "[redacted]");
+                    messageBody = messageBody.replace(offensiveWord, "[redacted]");
+                }
                 
                 const uid = context.awsRequestId
 
