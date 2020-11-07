@@ -24,7 +24,11 @@ exports.handler = async (event, context) => {
             case 'GET':
                 const itemCountParams = {
                     TableName: "messages",
-                    ProjectionExpression: "uid"
+                    ProjectionExpression: "uid",
+                    FilterExpression: "targetedReceiver = :r",
+                    ExpressionAttributeValues:{
+                        ":r": ""
+                    }
                 };
 
                 const dynamoResponse = await dynamo.scan(itemCountParams).promise();
