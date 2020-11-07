@@ -82,7 +82,7 @@ v-btn {
                         See a message from your inbox
                       </v-card-text>
 
-                      <v-card-actions>
+                      <v-card-actions v-if!="bMessageOpened">
                         <v-btn
                           color="#1f99bf"
                           v-on:click="getInboxMessage"
@@ -91,6 +91,8 @@ v-btn {
                         >
                           View Message
                         </v-btn>
+                      </v-card-actions>
+                      <v-card-actions>
                         <v-btn
                           color="#1f99bf"
                           v-on:click="goHome"
@@ -202,6 +204,7 @@ export default {
       originalSender: undefined,
       receiverQueue: undefined,
       bGotMessage: false,
+      bMessageOpened: false,
       formFields: [
         {
           type: "username"
@@ -259,6 +262,7 @@ export default {
  
       //Allows user to send their reply message
       this.bGotMessage = true;
+      this.bMessageOpened = true;
     },
     goHome() {
       this.$router.push({ path: "/" });
