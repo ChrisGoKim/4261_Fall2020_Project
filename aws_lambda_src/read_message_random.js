@@ -33,11 +33,17 @@ exports.handler = async (event, context) => {
 
                 const dynamoResponse = await dynamo.scan(itemCountParams).promise();
 
-                const randomIndex = Math.floor(Math.random() * (dynamoResponse.Count));
+                var randomIndex = Math.floor(Math.random() * (dynamoResponse.Count));
 
                 // body = randomIndex;
+                var hold = dynamoResponse.Items[randomIndex];
+                
+                while (hold.targetedReceiver == "") {
+                    randomIndex = Math.floor(Math.random() * (dynamoResponse.Count));
+                    hold = dynamoResponse.Items[randomIndex];
+                }
 
-                const randomMsgId = dynamoResponse.Items[randomIndex].uid;
+                const randomMsgId = hold.uid;
 
                 const params = {
                     TableName: "messages",
@@ -47,14 +53,14 @@ exports.handler = async (event, context) => {
                 };
 
                 body = await dynamo.get(params).promise();
-
+                
                 var readCounter =  body.Item.readCounter;
                 if (!readCounter) {
                     readCounter = 1;
                 } else {
                     readCounter = readCounter + 1;
                 }
-
+                
                 if (readCounter < 10) {
                     const params_update = {
                         TableName: "messages",
@@ -77,7 +83,7 @@ exports.handler = async (event, context) => {
                     };
                     await dynamo.delete(params_delete).promise();
                 }
-
+                
                 break;
             default:
                 throw new Error(`Unsupported method "${event.httpMethod}"`);
