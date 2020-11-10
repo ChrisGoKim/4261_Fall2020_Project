@@ -2,7 +2,6 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-
 exports.handler = async (event, context) => {
     //Metadata
     let body;
@@ -26,22 +25,22 @@ exports.handler = async (event, context) => {
                 //Gets the content of the event body defined in Vue
                 var messageSubject = message.subject;
                 var messageBody = message.body;
-
+                
                 const offensiveWords = ["YmFzdGFyZA==", "Yml0Y2g=", "Y3VudA==", "ZmFnZ290", "ZnVjaw==", "bmlnZ2Vy", "c2hpdA==", "c2x1dA==", "d2hvcmU="];
-
+                
                 for (var i = 0; i < offensiveWords.length; i++) {
                     var offensiveWord = Buffer.from(offensiveWords[i], 'base64').toString();
                     messageSubject = messageSubject.replace(offensiveWord, "[redacted]");
                     messageBody = messageBody.replace(offensiveWord, "[redacted]");
                 }
                 
-                const uid = context.awsRequestId
+                const newUID = context.awsRequestId
 
                 //Creates parameter based off of previous values and empty values
                 const params = {
                     TableName: "messages",
                     Item: {
-                        "uid": uid,
+                        "uid": newUID,
                         "subject": messageSubject,
                         "body": messageBody,
                         "readCounter" : 0,
@@ -49,17 +48,9 @@ exports.handler = async (event, context) => {
                         "targetedReceiver" : receiver
                     }
                 };
-                //Adding to read Queue
-                const userQParams = {
-                    TableName: "User",
-                    Item: {
-                        "sub": sender,
-                        "MessagesCSV": message.receiverQueue + "," + uid
-                    }
-                };
+                await dynamo.put(params).promise();
 
-                await dynamo.put(userQParams).promise();
-                body = await dynamo.put(params).promise();
+                body = await dynamo.get({TableName: "messages", Key: { uid: newUID },}).promise();
                 break;
             default:
                 throw new Error(`Unsupported method "${event.httpMethod}"`);

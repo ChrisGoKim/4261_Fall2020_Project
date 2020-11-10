@@ -248,7 +248,7 @@ export default {
           this.originalSender = response.Item.originalSender;
         })
         .catch(error => {
-          alert(error.response);
+          error.response;
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
@@ -282,7 +282,7 @@ export default {
           this.receiverQueue = response.Item.receiverQueue
         })
         .catch(error => {
-          alert(error.response);
+          error.response;
         });
     },
     reply() {
@@ -308,14 +308,17 @@ export default {
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
         .then(response => {
+          this.uid = response.Item.uid
           // alert(response.data);
+          //console.log(response.Item.uid)
+          this.updateReceiversQueue()
         })
         .catch(error => {
-          alert(error.data)
+          error.data
           //console.log(error.response);
         });
 
-      this.updateReceiversQueue()
+      
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
