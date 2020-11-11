@@ -17,6 +17,7 @@
       ></amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
+      <disclaimer v-if="showDisclaimer"></disclaimer>
       <v-radio-group row>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -124,16 +125,23 @@
 
 
 <script>
+import DisclaimerOverlay from '../components/DisclaimerOverlay'
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import API from "@aws-amplify/api";
 
 export default {
+  components: {
+    disclaimer: DisclaimerOverlay
+  },
   name: "AuthStateApp",
   created() {
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData;
     });
+
+    // TODO: Create lambda function and check if user has consented or not
+    this.showDisclaimer = false;
   },
   // Where we store data or create static variables
   data() {
@@ -155,7 +163,8 @@ export default {
         {
           type: "password"
         }
-      ]
+      ],
+      showDisclaimer: false
     };
   },
   beforeDestroy() {
