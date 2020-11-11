@@ -123,9 +123,8 @@
   </div>
 </template>
 
-
 <script>
-import DisclaimerOverlay from '../components/DisclaimerOverlay'
+import DisclaimerOverlay from "../components/DisclaimerOverlay";
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import API from "@aws-amplify/api";
 
@@ -211,7 +210,6 @@ export default {
   }
 };
 </script>
-
 
 <style>
 amplify-authenticator {
