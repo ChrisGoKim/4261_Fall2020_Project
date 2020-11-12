@@ -137,8 +137,9 @@ export default {
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData;
+      this.addUserGetInbox();
     });
-
+    
     // TODO: Create lambda function and check if user has consented or not
     this.showDisclaimer = false;
   },
@@ -147,6 +148,7 @@ export default {
     return {
       user: undefined,
       authState: undefined,
+      bHasPendingInbox: false,
       formFields: [
         {
           type: "username"
@@ -194,6 +196,39 @@ export default {
 
       alert("User deleted!");
       this.$router.push({ path: "/" });
+    },
+    addUserGetInbox() {
+      if (!this.user) {
+        console.log("cant find a user");
+        return;
+      }
+      const params = {
+        user: this.user.attributes.sub
+      };
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/user/add-user-return-inbox";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.put(apiName, path, myInit)
+        .then(response => {
+          var inboxLen = response;
+          console.log(inboxLen);
+          if (inboxLen < 1) {
+            this.bHasPendingInbox = false;
+          } else {
+            this.bHasPendingInbox = true;
+          }
+        })
+        .catch(error => {
+          alert(error);
+        });
+
     },
     readMessage() {
       this.$router.push({ path: "/inbox" });
