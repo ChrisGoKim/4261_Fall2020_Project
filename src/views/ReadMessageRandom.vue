@@ -29,8 +29,8 @@ v-btn {
           large
           v-on:click="openSettings"
         >
-          <v-icon>mdi-wrench</v-icon>
-        </v-btn>&#8205; &#8205; &#8205; &#8205; &#8205;
+          <v-icon>mdi-wrench</v-icon> </v-btn
+        >&#8205; &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
       <v-radio-group row>
         <v-spacer></v-spacer>
@@ -55,7 +55,6 @@ v-btn {
         <v-main>
           <v-container>
             <v-row>
-
               <!-- START OF READ MESSAGE -->
               <v-col cols="12" sm="2">
                 <v-sheet rounded="lg" min-height="268">
@@ -114,7 +113,6 @@ v-btn {
                 </v-sheet>
               </v-col>
 
-
               <!-- START OF COMPOSE MESSAGE -->
               <v-col cols="12" sm="2">
                 <v-sheet rounded="lg" min-height="100">
@@ -166,16 +164,12 @@ v-btn {
                 </v-sheet>
               </v-col>
             </v-row>
-
           </v-container>
-          
         </v-main>
       </div>
       <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
-
-  
 </template>
 
 <script>
@@ -191,6 +185,8 @@ export default {
       this.authState = authState;
       this.user = authData;
     });
+
+    this.pullMessage();
   },
   // Where we store data or create static variables
   data() {
@@ -225,7 +221,7 @@ export default {
     return onAuthUIStateChange;
   },
   methods: {
-    getRandomMsg() {
+    pullMessage() {
       //USING API GATEWAY ENDPOINT
       const apiName = "MiaB_1";
       const path = "/message/read-random";
@@ -240,8 +236,6 @@ export default {
         .then(response => {
           // alert(JSON.stringify(response, null, 2));
           // const response_values = JSON.stringify(response, null, 2);
-          document.getElementById("message-subject").innerHTML = "Subject: " + response.Item.subject;
-          document.getElementById("message-body").innerHTML = response.Item.body;
           this.uid = response.Item.uid;
           this.subject = response.Item.subject;
           this.body = response.Item.body;
@@ -250,9 +244,16 @@ export default {
         .catch(error => {
           error.response;
         });
+    },
+    getRandomMsg() {
+      document.getElementById("message-subject").innerHTML =
+        "Subject: " + this.subject;
+      document.getElementById("message-body").innerHTML = this.body;
+
+      this.pullMessage();
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
- 
+
       //Allows user to send their reply message
       this.bGotMessage = true;
     },
@@ -267,7 +268,7 @@ export default {
       const params = {
         receiverSub: this.originalSender,
         uid: this.uid
-      }
+      };
 
       const apiName = "MiaB_1";
       const path = "/message/read-user-queue";
@@ -279,7 +280,7 @@ export default {
 
       API.put(apiName, path, myInit)
         .then(response => {
-          this.receiverQueue = response.Item.receiverQueue
+          this.receiverQueue = response.Item.receiverQueue;
         })
         .catch(error => {
           error.response;
@@ -287,13 +288,16 @@ export default {
     },
     reply() {
       const messageSubject = "Re: " + this.subject;
-      const messageBody = this. body + "--->" + document.getElementById("message-body-reply").value;
+      const messageBody =
+        this.body +
+        "--->" +
+        document.getElementById("message-body-reply").value;
 
       const params = {
         subject: messageSubject,
         body: messageBody,
         sender: this.user,
-        receiver : this.originalSender
+        receiver: this.originalSender
       };
 
       //USING API GATEWAY ENDPOINT
@@ -308,17 +312,15 @@ export default {
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          this.uid = response.Item.uid
+          this.uid = response.Item.uid;
           // alert(response.data);
           //console.log(response.Item.uid)
-          this.updateReceiversQueue()
+          this.updateReceiversQueue();
         })
         .catch(error => {
-          error.data
+          error.data;
           //console.log(error.response);
         });
-
-      
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
