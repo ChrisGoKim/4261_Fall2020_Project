@@ -166,7 +166,7 @@ export default {
   methods: {
     addUserGetInbox() {
       if (!this.user) {
-        console.log("cant find a user");
+        // console.log("cant find a user");
         return;
       }
       const params = {
@@ -185,7 +185,7 @@ export default {
       API.put(apiName, path, myInit)
           .then(response => {
             var inboxLen = response;
-            console.log(inboxLen);
+            // console.log(inboxLen);
             if (inboxLen < 1) {
               this.bHasPendingInbox = false;
             } else {
