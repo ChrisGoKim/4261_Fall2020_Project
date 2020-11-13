@@ -41,7 +41,8 @@
             class="mx-2"
             dark
             large
-            v-on:click="deleteUser">
+            v-on:click="deleteUser"
+        >
           Delete user
         </v-btn>
         <v-spacer></v-spacer>
@@ -114,28 +115,30 @@ export default {
   },
   methods: {
     deleteUser() {
-      const params = {
-        requester: this.user
-      };
+      if (confirm("Do you really want to delete your user account?")) {
+        const params = {
+          requester: this.user
+        };
 
-      //USING API GATEWAY ENDPOINT
-      const apiName = "MiaB_1";
-      const path = "/user/delete-user";
-      const myInit = {
-        // OPTIONAL
-        body: params,
-        headers: {} // OPTIONAL
-      };
+        //USING API GATEWAY ENDPOINT
+        const apiName = "MiaB_1";
+        const path = "/user/delete-user";
+        const myInit = {
+          // OPTIONAL
+          body: params,
+          headers: {} // OPTIONAL
+        };
 
-      API.post(apiName, path, myInit)
-          .then(response => {
-            response.data;
-          })
-          .catch(error => {
-            alert(error);
-          });
+        API.post(apiName, path, myInit)
+            .then(response => {
+              response.data;
+            })
+            .catch(error => {
+              alert(error);
+            });
 
-      alert("User deleted!");
+        alert("User deleted!");
+      }
       this.$router.push({path: "/"});
     },
     goHome() {
