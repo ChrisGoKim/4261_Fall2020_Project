@@ -36,11 +36,11 @@ exports.handler = async (event, context) => {
                 if (dynamoResponse.Count < 1) {
                     body = {
                         "Item": {
-                            "subject": "No Message Available",
+                            "subject": "No Messages Available",
                             "originalSender": null,
                             "readCounter": null,
                             "uid": "00000000-0000-0000-0000-000000000000",
-                            "body": "There is currently no message available. Send one today!"
+                            "body": "There are currently no messages available. Send one today!"
                         }
                     }
 
