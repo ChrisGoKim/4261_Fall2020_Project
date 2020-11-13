@@ -33,13 +33,27 @@ exports.handler = async (event, context) => {
 
                 const dynamoResponse = await dynamo.scan(itemCountParams).promise();
 
+                if (dynamoResponse.Count < 1) {
+                    body = {
+                        "Item": {
+                            "subject": "No Message Available",
+                            "originalSender": null,
+                            "readCounter": 2,
+                            "uid": "00000000-0000-0000-0000-000000000000",
+                            "body": "There is currently no message available. Send one today!"
+                        }
+                    }
+
+                    break;
+                }
+
                 const randomIndex = Math.floor(Math.random() * (dynamoResponse.Count));
 
                 const randomMsgId = dynamoResponse.Items[randomIndex].uid;
 
                 const params = {
                     TableName: "messages",
-                    ProjectionExpression: "uid, subject, body, originalSender",
+                    ProjectionExpression: "uid, subject, body, originalSender, readCounter",
                     Key: {
                         uid: randomMsgId
                     }
