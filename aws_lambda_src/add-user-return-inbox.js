@@ -21,30 +21,30 @@ exports.handler = async (event, context) => {
             case 'PUT':
                 const message = JSON.parse(event.body);
                 const user = message.user
-                
+
                 const userParams = {
                     TableName: "User",
                     Key: {
-                        Username : user
+                        Username: user
                     }
                 };
-                
+
                 var q = await dynamo.get(userParams).promise();
-                
+
                 //If the user exists
-                if (q) {
+                if (q && q.Item) {
                     var queueString = q.Item.queue + "";
                     var queueArr = queueString.split(",");
                     body = queueArr.length;
-                    
+
                 } else {
                     const params = {
                         TableName: "User",
-                            Item: {
-                                "Username": user.attributes.sub,
-                                "queue": ""
-                            }
-                        };
+                        Item: {
+                            "Username": user,
+                            "queue": ""
+                        }
+                    };
                     await dynamo.put(params).promise()
                     body = 0;
                 }
