@@ -68,7 +68,7 @@ exports.handler = async (event, context) => {
                     readCounter = readCounter + 1;
                 }
 
-                if (readCounter < 10) {
+                if (readCounter < 15) {
                     const params_update = {
                         TableName: "messages",
                         Key:{
