@@ -7,7 +7,7 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>HelloCordova</name>
+    <name>Message in a Bottle</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -15,8 +15,7 @@
         Apache Cordova Team
     </author>
     <hook src="./node_modules/vue-cli-plugin-cordova/serve-config-hook.js" type="after_prepare" />
-    <content src="https://128.61.87.207:8080" />
-    <allow-navigation href="https://128.61.87.207:8080" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
