@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const cognitoIdentity = new AWS.CognitoIdentityServiceProvider({ region: 'us-east-1' }); //replace with the region of your user pool
 
-let UserPoolId = process.env.UserPoolId;
+// let UserPoolId = process.env.UserPoolId;
 
 
 exports.handler = async (event) => {
@@ -26,11 +26,12 @@ exports.handler = async (event) => {
     }
 
     try {
-        body = await cognitoIdentity.adminDeleteUser(deleteParams).promise();
+        await cognitoIdentity.adminDeleteUser(deleteParams).promise();
+        body = "deletion successful"
     } catch (e) {
         console.log(`error deleting user ${Username}: ${e}`)
         body = `error deleting user ${Username}: ${e}`
-        // throw e;
+        statusCode = '400'
     }
 
     return {
