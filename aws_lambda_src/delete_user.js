@@ -14,7 +14,11 @@ exports.handler = async (event) => {
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
     };
 
-    const { Username, UserPoolId } = event;
+    const requestBody = JSON.parse(event.body);
+
+    const Username = requestBody.requester.username;
+    const UserPoolId = requestBody.requester.pool.userPoolId;
+
 
     const deleteParams = {
         "Username": Username,
@@ -25,7 +29,8 @@ exports.handler = async (event) => {
         body = await cognitoIdentity.adminDeleteUser(deleteParams).promise();
     } catch (e) {
         console.log(`error deleting user ${Username}: ${e}`)
-        throw e;
+        body = `error deleting user ${Username}: ${e}`
+        // throw e;
     }
 
     return {

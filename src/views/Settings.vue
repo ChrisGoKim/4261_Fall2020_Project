@@ -115,7 +115,7 @@ export default {
   methods: {
     deleteUser() {
       const params = {
-        username: "username"
+        requester: this.user
       };
 
       //USING API GATEWAY ENDPOINT
