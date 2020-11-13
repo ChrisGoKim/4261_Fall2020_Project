@@ -15,7 +15,8 @@ const opts = {
     }
   },
   options: {
-    customProperties: true
+    customProperties: true,
+    fix: true
   },
   icons: {
     iconfont: "mdi"
