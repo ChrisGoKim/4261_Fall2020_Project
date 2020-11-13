@@ -27,6 +27,7 @@
     "cordova-serve-osx": "cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx"
   },
   "dependencies": {
+    "@aws-amplify/api": "^3.2.11",
     "@aws-amplify/auth": "^3.4.4",
     "@aws-amplify/core": "^3.5.4",
     "@aws-amplify/interactions": "^3.3.4",

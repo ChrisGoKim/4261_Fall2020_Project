@@ -2,13 +2,13 @@
   <div class="settings">
     <amplify-authenticator v-if="authState !== 'signedin'">
       <amplify-sign-in
-          header-text="Message in a Bottle"
-          slot="sign-in"
+        header-text="Message in a Bottle"
+        slot="sign-in"
       ></amplify-sign-in>
       <amplify-sign-up
-          slot="sign-up"
-          username-alias="username"
-          :form-fields.prop="formFields"
+        slot="sign-up"
+        username-alias="username"
+        :form-fields.prop="formFields"
       ></amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
@@ -17,12 +17,12 @@
         <v-col></v-col>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
-            style="font-family: Quicksand;"
-            class="mx-2"
-            dark
-            large
-            color="black"
-            v-on:click="goHome"
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          color="black"
+          v-on:click="goHome"
         >
           <v-icon>mdi-home</v-icon>
           &#8205; Return To Home
@@ -37,17 +37,17 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <v-btn
-            style="font-family: Quicksand;"
-            class="mx-2"
-            dark
-            large
-            v-on:click="deleteUser"
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          v-on:click="deleteUser"
         >
           Delete user
         </v-btn>
         <v-spacer></v-spacer>
       </v-radio-group>
-      <br/>
+      <br />
       <div>
         <v-main>
           <v-container>
@@ -80,8 +80,9 @@
 </template>
 
 <script>
-import {onAuthUIStateChange} from "@aws-amplify/ui-components";
+import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import API from "@aws-amplify/api";
+import { Auth } from "aws-amplify";
 
 export default {
   name: "AuthStateApp",
@@ -97,10 +98,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username"
+          type: "username",
         },
         {
-          type: "email"
+          type: "email",
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -108,16 +109,16 @@ export default {
           */
         },
         {
-          type: "password"
-        }
-      ]
+          type: "password",
+        },
+      ],
     };
   },
   methods: {
     deleteUser() {
       if (confirm("Do you really want to delete your user account?")) {
         const params = {
-          requester: this.user
+          requester: this.user,
         };
 
         //USING API GATEWAY ENDPOINT
@@ -126,25 +127,26 @@ export default {
         const myInit = {
           // OPTIONAL
           body: params,
-          headers: {} // OPTIONAL
+          headers: {}, // OPTIONAL
         };
 
         API.post(apiName, path, myInit)
-            .then(response => {
-              response.data;
-            })
-            .catch(error => {
-              alert(error);
-            });
+          .then((response) => {
+            response.data;
+          })
+          .catch((error) => {
+            alert(error);
+          });
 
         alert("User deleted!");
       }
-      this.$router.push({path: "/"});
+      Auth.signOut({ global: true });
+      this.$router.push({ path: "/" });
     },
     goHome() {
-      this.$router.push({path: "/"});
-    }
-  }
+      this.$router.push({ path: "/" });
+    },
+  },
 };
 </script>
 
