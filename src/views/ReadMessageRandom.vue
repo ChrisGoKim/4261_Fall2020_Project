@@ -87,8 +87,9 @@ v-btn {
                         <v-btn
                             color="#1f99bf"
                             v-on:click="getRandomMsg"
-                            style="font-family: Quicksand;
-                          margin-right: 5px;"
+                            style="font-family: Quicksand;margin-right: 5px;"
+                            id="get-random-msg-btn"
+                            :disabled="this.preUid == null"
                         >
                           Get Random Message
                         </v-btn>
@@ -241,10 +242,10 @@ export default {
           .then(response => {
             // alert(JSON.stringify(response, null, 2));
             // const response_values = JSON.stringify(response, null, 2);
-            this.preUid = response.Item.uid;
             this.preSubject = response.Item.subject;
             this.preBody = response.Item.body;
             this.preOriginalSender = response.Item.originalSender;
+            this.preUid = response.Item.uid;
           })
           .catch(error => {
             error.response;
@@ -252,6 +253,7 @@ export default {
     },
     getRandomMsg() {
       this.uid = this.preUid;
+      this.preUid = null;
       this.subject = this.preSubject;
       this.body = this.preBody;
       this.originalSender = this.preOriginalSender;
