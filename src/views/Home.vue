@@ -22,7 +22,7 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -41,7 +41,7 @@
         <v-spacer></v-spacer>
         <p>&#8205; &#8205; &#8205;</p>
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -56,7 +56,7 @@
         <v-spacer></v-spacer>
         <p>&#8205; &#8205; &#8205;</p>
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -71,7 +71,7 @@
         <v-spacer></v-spacer>
         <p>&#8205; &#8205; &#8205;</p>
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -122,7 +122,7 @@ import API from "@aws-amplify/api";
 
 export default {
   components: {
-    disclaimer: DisclaimerOverlay,
+    disclaimer: DisclaimerOverlay
   },
   name: "AuthStateApp",
   created() {
@@ -130,10 +130,8 @@ export default {
       this.authState = authState;
       this.user = authData;
       this.addUserGetInbox();
+      this.showConsent();
     });
-
-    // TODO: Create lambda function and check if user has consented or not
-    this.showDisclaimer = false;
   },
   // Where we store data or create static variables
   data() {
@@ -141,12 +139,13 @@ export default {
       user: undefined,
       authState: undefined,
       bHasPendingInbox: false,
+      userConsent: undefined,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -154,10 +153,10 @@ export default {
           */
         },
         {
-          type: "password",
-        },
+          type: "password"
+        }
       ],
-      showDisclaimer: false,
+      showDisclaimer: undefined
     };
   },
   beforeDestroy() {
@@ -170,7 +169,7 @@ export default {
         return;
       }
       const params = {
-        user: this.user.attributes.sub,
+        user: this.user.attributes.sub
       };
 
       //USING API GATEWAY ENDPOINT
@@ -179,11 +178,11 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-        .then((response) => {
+        .then(response => {
           var inboxLen = response;
           // console.log(inboxLen);
           if (inboxLen < 1) {
@@ -192,7 +191,66 @@ export default {
             this.bHasPendingInbox = true;
           }
         })
-        .catch((error) => {
+        .catch(error => {
+          alert(error);
+        });
+    },
+    showConsent() {
+      if (!this.user) {
+        console.log("cant find a user");
+        this.showDisclaimer = false;
+        return;
+      }
+
+      // USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/user/check-consent";
+      const params = {
+        currUser: this.user.attributes.sub
+      };
+
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.put(apiName, path, myInit)
+        .then(response => {
+          this.userConsent = response.Item.consent;
+          this.showDisclaimer = !this.userConsent;
+        })
+        .catch(error => {
+          alert(error.response);
+        });
+    },
+    agree() {
+      // TODO: Change user's showDisclaimer to false
+      if (!this.user) {
+        console.log("cant find a user");
+        return;
+      }
+      const params = {
+        user: this.user.attributes.sub
+      };
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/user/consent-agree";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.put(apiName, path, myInit)
+        .then(response => {
+          if (response) {
+            this.showDisclaimer = false;
+          }
+          this.showDisclaimer = false;
+        })
+        .catch(error => {
           alert(error);
         });
     },
@@ -207,8 +265,8 @@ export default {
     },
     writeMessage() {
       this.$router.push({ path: "/write" });
-    }, // end of methods
-  },
+    } // end of methods
+  }
 };
 </script>
 

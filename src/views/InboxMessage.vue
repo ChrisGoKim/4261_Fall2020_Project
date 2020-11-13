@@ -197,10 +197,10 @@ export default {
       bMessageOpened: false,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -208,9 +208,9 @@ export default {
           */
         },
         {
-          type: "password",
-        },
-      ],
+          type: "password"
+        }
+      ]
     };
   },
   beforeDestroy() {
@@ -222,18 +222,18 @@ export default {
       const apiName = "MiaB_1";
       const path = "/message/read-inbox";
       const params = {
-        inboxOwner: this.user,
+        inboxOwner: this.user
       };
 
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
-        .then((response) => {
+        .then(response => {
           // alert(JSON.stringify(response, null, 2));
           // const response_values = JSON.stringify(response, null, 2);
           document.getElementById("message-subject").innerHTML =
@@ -245,7 +245,7 @@ export default {
           this.body = response.Item.body;
           this.originalSender = response.Item.originalSender;
         })
-        .catch((error) => {
+        .catch(error => {
           alert(error.response);
         });
 
@@ -265,7 +265,7 @@ export default {
       //Parameter for the user who is getting the reply added to their queue
       const params = {
         receiverSub: this.originalSender,
-        uid: this.uid,
+        uid: this.uid
       };
 
       const apiName = "MiaB_1";
@@ -273,14 +273,14 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-        .then((response) => {
+        .then(response => {
           this.receiverQueue = response.Item.receiverQueue;
         })
-        .catch((error) => {
+        .catch(error => {
           alert(error.response);
         });
     },
@@ -295,7 +295,7 @@ export default {
         subject: messageSubject,
         body: messageBody,
         sender: this.user,
-        receiver: this.originalSender,
+        receiver: this.originalSender
       };
 
       //USING API GATEWAY ENDPOINT
@@ -304,15 +304,15 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
-        .then((response) => {
+        .then(response => {
           // alert(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           alert(error.data);
           //console.log(error.response);
         });
@@ -321,8 +321,8 @@ export default {
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
-    }, // end of methods
-  },
+    } // end of methods
+  }
 };
 </script>
 

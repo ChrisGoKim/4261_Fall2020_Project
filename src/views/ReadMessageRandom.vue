@@ -23,7 +23,7 @@ v-btn {
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -37,7 +37,7 @@ v-btn {
         <v-col></v-col>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -67,7 +67,7 @@ v-btn {
                   <v-col cols="12">
                     <v-card color="#385F73" dark>
                       <v-card-title
-                        style="font-family: 'Dancing Script', cursive"
+                        style="font-family: 'Dancing Script', cursive;"
                         id="message-subject"
                       >
                         Read Message
@@ -86,7 +86,7 @@ v-btn {
                         <v-btn
                           color="#1f99bf"
                           v-on:click="getRandomMsg"
-                          style="font-family: Quicksand; margin-right: 5px"
+                          style="font-family: Quicksand;margin-right: 5px;"
                           id="get-random-msg-btn"
                           :disabled="this.preUid == null"
                         >
@@ -95,7 +95,8 @@ v-btn {
                         <v-btn
                           color="#1f99bf"
                           v-on:click="goHome"
-                          style="font-family: Quicksand; margin-left: 5px"
+                          style="font-family: Quicksand;
+                          margin-left: 5px;"
                         >
                           Close
                         </v-btn>
@@ -203,10 +204,10 @@ export default {
       bGotMessage: false,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -214,9 +215,9 @@ export default {
           */
         },
         {
-          type: "password",
-        },
-      ],
+          type: "password"
+        }
+      ]
     };
   },
   beforeDestroy() {
@@ -230,12 +231,12 @@ export default {
       const myInit = {
         // OPTIONAL
         body: {},
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.get(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
-        .then((response) => {
+        .then(response => {
           // alert(JSON.stringify(response, null, 2));
           // const response_values = JSON.stringify(response, null, 2);
           this.preSubject = response.Item.subject;
@@ -243,7 +244,7 @@ export default {
           this.preOriginalSender = response.Item.originalSender;
           this.preUid = response.Item.uid;
         })
-        .catch((error) => {
+        .catch(error => {
           error.response;
         });
     },
@@ -275,7 +276,7 @@ export default {
       //Parameter for the user who is getting the reply added to their queue
       const params = {
         receiverSub: this.originalSender,
-        uid: this.uid,
+        uid: this.uid
       };
 
       const apiName = "MiaB_1";
@@ -283,14 +284,14 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-        .then((response) => {
+        .then(response => {
           this.receiverQueue = response.Item.receiverQueue;
         })
-        .catch((error) => {
+        .catch(error => {
           error.response;
         });
     },
@@ -305,7 +306,7 @@ export default {
         subject: messageSubject,
         body: messageBody,
         sender: this.user,
-        receiver: this.originalSender,
+        receiver: this.originalSender
       };
 
       //USING API GATEWAY ENDPOINT
@@ -314,26 +315,26 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
-        .then((response) => {
+        .then(response => {
           this.uid = response.Item.uid;
           // alert(response.data);
           //console.log(response.Item.uid)
           this.updateReceiversQueue();
         })
-        .catch((error) => {
+        .catch(error => {
           error.data;
           //console.log(error.response);
         });
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
-    }, // end of methods
-  },
+    } // end of methods
+  }
 };
 </script>
 

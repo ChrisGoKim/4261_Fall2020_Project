@@ -12,28 +12,33 @@
         <br />
         <br />
       </p>
-      <button v-on:click="agree">Agree and Continue</button>
+      <v-btn
+        style="font-family: Quicksand;"
+        class="mx-2"
+        dark
+        large
+        v-on:click="agree"
+        >Agree and Continue</v-btn
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  // Where we store data or create static variables
   data() {
     return {
       overlayActivityStyle: {
-        display: "block",
-      },
+        display: "block"
+      }
     };
   },
   methods: {
     agree() {
-      // TODO: Change user's showDisclaimer to false
-
-      // If user has consented:
-      this.overlayActivityStyle.display = "none";
-    },
-  },
+      this.$parent.agree();
+    }
+  }
 };
 </script>
 

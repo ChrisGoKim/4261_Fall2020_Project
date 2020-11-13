@@ -17,7 +17,7 @@
         <v-col></v-col>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -37,7 +37,7 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <v-btn
-          style="font-family: Quicksand"
+          style="font-family: Quicksand;"
           class="mx-2"
           dark
           large
@@ -98,10 +98,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -109,16 +109,16 @@ export default {
           */
         },
         {
-          type: "password",
-        },
-      ],
+          type: "password"
+        }
+      ]
     };
   },
   methods: {
     deleteUser() {
       if (confirm("Do you really want to delete your user account?")) {
         const params = {
-          requester: this.user,
+          requester: this.user
         };
 
         //USING API GATEWAY ENDPOINT
@@ -127,14 +127,14 @@ export default {
         const myInit = {
           // OPTIONAL
           body: params,
-          headers: {}, // OPTIONAL
+          headers: {} // OPTIONAL
         };
 
         API.post(apiName, path, myInit)
-          .then((response) => {
+          .then(response => {
             response.data;
           })
-          .catch((error) => {
+          .catch(error => {
             alert(error);
           });
 
@@ -145,8 +145,8 @@ export default {
     },
     goHome() {
       this.$router.push({ path: "/" });
-    },
-  },
+    }
+  }
 };
 </script>
 
