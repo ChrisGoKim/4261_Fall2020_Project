@@ -186,13 +186,17 @@ export default {
       this.user = authData;
     });
 
-    this.pullMessage();
+    this.preloadMessage();
   },
   // Where we store data or create static variables
   data() {
     return {
       user: undefined,
       authState: undefined,
+      preUid: undefined,
+      preSubject: undefined,
+      preBody: undefined,
+      preOriginalSender: undefined,
       uid: undefined,
       subject: undefined,
       body: undefined,
@@ -221,7 +225,7 @@ export default {
     return onAuthUIStateChange;
   },
   methods: {
-    pullMessage() {
+    preloadMessage() {
       //USING API GATEWAY ENDPOINT
       const apiName = "MiaB_1";
       const path = "/message/read-random";
@@ -236,21 +240,26 @@ export default {
         .then(response => {
           // alert(JSON.stringify(response, null, 2));
           // const response_values = JSON.stringify(response, null, 2);
-          this.uid = response.Item.uid;
-          this.subject = response.Item.subject;
-          this.body = response.Item.body;
-          this.originalSender = response.Item.originalSender;
+          this.preUid = response.Item.uid;
+          this.preSubject = response.Item.subject;
+          this.preBody = response.Item.body;
+          this.preOriginalSender = response.Item.originalSender;
         })
         .catch(error => {
           error.response;
         });
     },
     getRandomMsg() {
+      this.uid = this.preUid;
+      this.subject = this.preSubject;
+      this.body = this.preBody;
+      this.originalSender = this.preOriginalSender;
+
       document.getElementById("message-subject").innerHTML =
         "Subject: " + this.subject;
       document.getElementById("message-body").innerHTML = this.body;
 
-      this.pullMessage();
+      this.preloadMessage();
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
 
