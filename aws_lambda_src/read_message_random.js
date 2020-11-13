@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
                         "Item": {
                             "subject": "No Message Available",
                             "originalSender": null,
-                            "readCounter": 2,
+                            "readCounter": null,
                             "uid": "00000000-0000-0000-0000-000000000000",
                             "body": "There is currently no message available. Send one today!"
                         }
