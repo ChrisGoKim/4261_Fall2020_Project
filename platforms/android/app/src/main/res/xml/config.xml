@@ -14,8 +14,9 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <hook src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" type="after_prepare" />
-    <content src="./index.html" />
+    <hook src="./node_modules/vue-cli-plugin-cordova/serve-config-hook.js" type="after_prepare" />
+    <content src="https://128.61.87.207:8080" />
+    <allow-navigation href="https://128.61.87.207:8080" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

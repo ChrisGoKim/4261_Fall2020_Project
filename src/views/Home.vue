@@ -197,7 +197,7 @@ export default {
     },
     showConsent() {
       if (!this.user) {
-        console.log("cant find a user");
+        // console.log("cant find a user");
         this.showDisclaimer = false;
         return;
       }
@@ -227,7 +227,7 @@ export default {
     agree() {
       // TODO: Change user's showDisclaimer to false
       if (!this.user) {
-        console.log("cant find a user");
+        // console.log("cant find a user");
         return;
       }
       const params = {

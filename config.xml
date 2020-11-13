@@ -8,7 +8,7 @@
         Apache Cordova Team
     </author>
     <!-- this hook will point your config.xml to the DevServer on Serve -->
-    <hook type="after_prepare" src="../node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />
+    <hook type="after_prepare" src="./node_modules/vue-cli-plugin-cordova/serve-config-hook.js" />
     <content src="./index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
