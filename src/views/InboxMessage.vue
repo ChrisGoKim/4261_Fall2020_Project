@@ -82,7 +82,7 @@ v-btn {
                         See a message from your inbox
                       </v-card-text>
 
-                      <v-card-actions v-if!="bMessageOpened">
+                      <v-card-actions v-if="bMessageOpened != true">
                         <v-btn
                           color="#1f99bf"
                           v-on:click="getInboxMessage"
