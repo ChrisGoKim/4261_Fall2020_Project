@@ -49,6 +49,8 @@ exports.handler = async (event) => {
             await dynamo.delete(deleteSentMessageParams).promise();
         }
 
+        body += `; successfully deleted sent messages from messages table`
+
     } catch (e) {
         body += `; error deleting sent messages from messages table: ${e}`
         statusCode = '400'
@@ -89,6 +91,8 @@ exports.handler = async (event) => {
         // delete user from User table
         await dynamo.delete(getUserFromTableParams).promise();
 
+        body += `; successfully deleted received messages from messages table`
+
     } catch (e) {
         body += `; error deleting received messages from messages table: ${e}`
         statusCode = '400'
@@ -102,6 +106,9 @@ exports.handler = async (event) => {
         }
 
         await cognitoIdentity.adminDeleteUser(cognitoDeleteParams).promise();
+
+        body += `; successfully deleted user from AWS Cognito`
+
     } catch (e) {
         body += `; error deleting user from AWS Cognito: ${e}`
         statusCode = '400'
