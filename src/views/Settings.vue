@@ -135,7 +135,7 @@ export default {
             response.data;
           })
           .catch(error => {
-            alert(error);
+            (error);
           });
 
         alert("User deleted!");

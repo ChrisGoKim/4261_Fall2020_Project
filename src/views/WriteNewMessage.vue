@@ -179,7 +179,7 @@ export default {
           // alert(response.data);
         })
         .catch(error => {
-          alert(error.data);
+          (error.data);
           //console.log(error.response);
         });
 

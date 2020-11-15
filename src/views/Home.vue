@@ -227,7 +227,7 @@ export default {
           this.showDisclaimer = !this.userConsent;
         })
         .catch(error => {
-          alert(error.response);
+          (error.response);
         });
     },
     agree() {
@@ -257,7 +257,7 @@ export default {
           this.showDisclaimer = false;
         })
         .catch(error => {
-          alert(error);
+          (error);
         });
 
       localStorage.setItem("consent", "true");
