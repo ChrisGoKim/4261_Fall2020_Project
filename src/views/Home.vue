@@ -83,36 +83,11 @@
         </v-btn>
         <v-spacer></v-spacer>
       </v-radio-group>
-      <br />
-
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="5">
-                <v-sheet rounded="lg" min-height="50vh">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet min-height="50vh" rounded="lg">
-                  <v-col cols="12">
-                    <amplify-sign-out
-                      @click="persist()"></amplify-sign-out>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="5">
-                <v-sheet rounded="lg" min-height="50vh">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
-      </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out @click="persist()"></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -133,7 +108,10 @@ export default {
       this.user = authData;
       this.addUserGetInbox();
       this.localConsent = localStorage.getItem("consent");
-      if (this.localConsent == "false" && localStorage.getItem("check") == "true") {
+      if (
+        this.localConsent == "false" &&
+        localStorage.getItem("check") == "true"
+      ) {
         this.showConsent();
       }
     });
@@ -227,7 +205,7 @@ export default {
           this.showDisclaimer = !this.userConsent;
         })
         .catch(error => {
-          (error.response);
+          error.response;
         });
     },
     agree() {
@@ -257,7 +235,7 @@ export default {
           this.showDisclaimer = false;
         })
         .catch(error => {
-          (error);
+          error;
         });
 
       localStorage.setItem("consent", "true");

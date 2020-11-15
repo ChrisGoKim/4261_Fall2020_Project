@@ -49,122 +49,76 @@ v-btn {
         </v-btn>
         &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
-      <br /><br />
+      <div class="card">
+        <v-card color="#385F73" dark>
+          <v-card-title
+            style="font-family: 'Dancing Script', cursive"
+            id="message-subject"
+          >
+            Read Message
+          </v-card-title>
 
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <!-- START OF READ MESSAGE -->
-              <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
+          <v-card-text
+            style="font-family: Quicksand"
+            align="left"
+            id="message-body"
+          >
+            See a message from your inbox
+          </v-card-text>
 
-              <v-col cols="12" sm="8">
-                <v-sheet min-height="15vh" rounded="lg">
-                  <v-col cols="12">
-                    <v-card color="#385F73" dark>
-                      <v-card-title
-                        style="font-family: 'Dancing Script', cursive"
-                        id="message-subject"
-                      >
-                        Read Message
-                      </v-card-title>
+          <v-card-actions v-if="bMessageOpened != true">
+            <v-btn
+              color="#1f99bf"
+              v-on:click="getInboxMessage"
+              style="font-family: Quicksand; margin-left: 5px"
+            >
+              View Message
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn
+              color="#1f99bf"
+              v-on:click="goHome"
+              style="font-family: Quicksand; margin-left: 5px"
+            >
+              Close Without Reply
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <br />
+        <v-form ref="form">
+          <v-card color="#385F73" dark>
+            <v-card-title class="justify-center">
+              Compose Your Reply
+            </v-card-title>
 
-                      <v-card-text
-                        style="font-family: Quicksand"
-                        align="left"
-                        id="message-body"
-                      >
-                        See a message from your inbox
-                      </v-card-text>
+            <v-card-text style="padding-bottom: 0px">
+              <v-text-field
+                outlined
+                counter
+                placeholder="Subject line..."
+                id="message-subject-reply"
+              ></v-text-field>
+              <v-textarea
+                class="ma-0"
+                outlined
+                counter
+                placeholder="Start typing here..."
+                id="message-body-reply"
+              ></v-textarea>
+            </v-card-text>
 
-                      <v-card-actions v-if="bMessageOpened != true">
-                        <v-btn
-                          color="#1f99bf"
-                          v-on:click="getInboxMessage"
-                          style="font-family: Quicksand; margin-right: 5px"
-                        >
-                          View Message
-                        </v-btn>
-                      </v-card-actions>
-                      <v-card-actions>
-                        <v-btn
-                          color="#1f99bf"
-                          v-on:click="goHome"
-                          style="font-family: Quicksand; margin-left: 5px"
-                        >
-                          Close Without Reply
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-
-                    <br /><br />
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-
-              <!-- START OF COMPOSE MESSAGE -->
-              <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="100">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="8">
-                <v-sheet min-height="30vh" rounded="lg">
-                  <v-col cols="12">
-                    <v-form ref="form">
-                      <v-card color="#385F73" dark>
-                        <v-card-title class="justify-center">
-                          Compose Your Reply
-                        </v-card-title>
-
-                        <v-card-text style="padding-bottom: 0px">
-                          <v-text-field
-                            outlined
-                            counter
-                            placeholder="Subject line..."
-                            id="message-subject-reply"
-                          ></v-text-field>
-                          <v-textarea
-                            class="ma-0"
-                            outlined
-                            counter
-                            placeholder="Start typing here..."
-                            id="message-body-reply"
-                          ></v-textarea>
-                        </v-card-text>
-
-                        <v-card-actions v-if="bGotMessage">
-                          <v-btn outlined v-on:click="reply"> Send </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-form>
-
-                    <br /><br />
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="100">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
+            <v-card-actions v-if="bGotMessage">
+              <v-btn outlined v-on:click="reply"> Send </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
       </div>
-      <amplify-sign-out></amplify-sign-out>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out @click="persist()"></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -247,7 +201,7 @@ export default {
           this.originalSender = response.Item.originalSender;
         })
         .catch(error => {
-          (error.response);
+          error.response;
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
@@ -283,7 +237,7 @@ export default {
           this.receiverQueue = response.Item.receiverQueue;
         })
         .catch(error => {
-          (error.response);
+          error.response;
         });
     },
     reply() {
@@ -316,17 +270,17 @@ export default {
           this.updateReceiversQueue();
         })
         .catch(error => {
-          (error.data);
+          error.data;
           //console.log(error.response);
         });
 
       alert("Message sent!");
-      this.goHome()
+      this.goHome();
     },
     delete() {
       const params = {
         uid: this.previousUID
-      }
+      };
 
       //USING API GATEWAY ENDPOINT
       const apiName = "MiaB_1";
@@ -343,10 +297,9 @@ export default {
           response.Item;
         })
         .catch(error => {
-          (error.data);
+          error.data;
           //console.log(error.response);
         });
-
     } // end of methods
   }
 };
@@ -356,5 +309,9 @@ export default {
 .v-card__text {
   font-size: 1.2rem !important;
   color: white !important;
+}
+.card {
+  padding-left: 15%;
+  padding-right: 15%;
 }
 </style>
