@@ -96,7 +96,7 @@ v-btn {
                           v-on:click="goHome"
                           style="font-family: Quicksand; margin-left: 5px"
                         >
-                          Close
+                          Close Without Reply
                         </v-btn>
                       </v-card-actions>
                     </v-card>
@@ -188,6 +188,7 @@ export default {
     return {
       user: undefined,
       authState: undefined,
+      previousUID: undefined,
       uid: undefined,
       subject: undefined,
       body: undefined,
@@ -240,13 +241,13 @@ export default {
             "Subject: " + response.Item.subject;
           document.getElementById("message-body").innerHTML =
             response.Item.body;
-          this.uid = response.Item.uid;
+          this.previousUID = response.Item.uid;
           this.subject = response.Item.subject;
           this.body = response.Item.body;
           this.originalSender = response.Item.originalSender;
         })
         .catch(error => {
-          alert(error.response);
+          (error.response);
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
@@ -256,6 +257,7 @@ export default {
       this.bMessageOpened = true;
     },
     goHome() {
+      this.delete();
       this.$router.push({ path: "/" });
     },
     openSettings() {
@@ -281,7 +283,7 @@ export default {
           this.receiverQueue = response.Item.receiverQueue;
         })
         .catch(error => {
-          alert(error.response);
+          (error.response);
         });
     },
     reply() {
@@ -310,17 +312,41 @@ export default {
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
         .then(response => {
-          // alert(response.data);
+          this.uid = response.Item.uid;
+          this.updateReceiversQueue();
         })
         .catch(error => {
-          alert(error.data);
+          (error.data);
           //console.log(error.response);
         });
 
-      this.updateReceiversQueue();
-
       alert("Message sent!");
-      this.$router.push({ path: "/" });
+      this.goHome()
+    },
+    delete() {
+      const params = {
+        uid: this.previousUID
+      }
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/message/delete";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {} // OPTIONAL
+      };
+
+      API.del(apiName, path, myInit)
+        // eslint-disable-next-line no-unused-vars
+        .then(response => {
+          response.Item;
+        })
+        .catch(error => {
+          (error.data);
+          //console.log(error.response);
+        });
+
     } // end of methods
   }
 };

@@ -98,7 +98,7 @@ v-btn {
                           style="font-family: Quicksand;
                           margin-left: 5px;"
                         >
-                          Close
+                          Close Without Reply
                         </v-btn>
                       </v-card-actions>
                     </v-card>
