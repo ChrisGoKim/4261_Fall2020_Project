@@ -9,6 +9,7 @@
       <amplify-sign-in
         header-text="Message in a Bottle"
         slot="sign-in"
+        @click="check()"
       ></amplify-sign-in>
       <amplify-sign-up
         slot="sign-up"
@@ -97,7 +98,8 @@
               <v-col cols="12" sm="2">
                 <v-sheet min-height="50vh" rounded="lg">
                   <v-col cols="12">
-                    <amplify-sign-out></amplify-sign-out>
+                    <amplify-sign-out
+                      @click="persist()"></amplify-sign-out>
                   </v-col>
                 </v-sheet>
               </v-col>
@@ -130,7 +132,10 @@ export default {
       this.authState = authState;
       this.user = authData;
       this.addUserGetInbox();
-      this.showConsent();
+      this.localConsent = localStorage.getItem("consent");
+      if (this.localConsent == "false" && localStorage.getItem("check") == "true") {
+        this.showConsent();
+      }
     });
   },
   // Where we store data or create static variables
@@ -140,6 +145,7 @@ export default {
       authState: undefined,
       bHasPendingInbox: false,
       userConsent: undefined,
+      localConsent: undefined,
       formFields: [
         {
           type: "username"
@@ -253,6 +259,9 @@ export default {
         .catch(error => {
           alert(error);
         });
+
+      localStorage.setItem("consent", "true");
+      localStorage.setItem("check", "false");
     },
     readMessage() {
       this.$router.push({ path: "/inbox" });
@@ -262,6 +271,12 @@ export default {
     },
     openSettings() {
       this.$router.push({ path: "/settings" });
+    },
+    persist() {
+      localStorage.setItem("consent", "false");
+    },
+    check() {
+      localStorage.setItem("check", "true");
     },
     writeMessage() {
       this.$router.push({ path: "/write" });
