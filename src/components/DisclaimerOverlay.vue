@@ -6,7 +6,9 @@
       </div>
 
       <p class style="width:100%;height:80%;overflow:auto;font-size: 18px;text-align: left;">
-        <b>Please read this entire document. If you do not agree, please leave this website immediately.</b>
+        <b>By clicking on "Agree and Continue" or otherwise continuing to use our website, you accept these Terms of Services and our Privacy Notice, located at: <a href="https://messagebottle.app/privacy" target="_blank">https://messagebottle.app/privacy</a>.</b>
+
+        <br><br><b>Please use the scroll function to read this entire document. If you do not agree, please leave this website immediately.</b>
 
         <br><br>Message in a Bottle ("Us" or "We") provides the messagebottle.app website and various related services (collectively, the "Website") to you, the User, subject to your compliance with all the terms, conditions, and notices contained or referenced herein (the "Terms of Service"), as well as any other written agreement between us and you.
 
@@ -75,6 +77,7 @@
         <br><br>In the event that any provision of these Terms is held to be invalid or unenforceable, then that provision will be limited or eliminated to the minimum extent necessary, and the remaining provisions of these Terms will remain in full force and effect. Our failure to enforce any right or provision of these Terms will not be deemed a waiver of such right or provision.
 
         <br><br>This Agreement sets out the entire agreement between You and Us as relates to the Website and overrides all other agreements or understandings.
+
 
 
       </p>
