@@ -9,7 +9,7 @@ export default {
   created() {
     localStorage.setItem("consent", "false");
     localStorage.setItem("check", "true");
-  },
+  }
 };
 </script>
 

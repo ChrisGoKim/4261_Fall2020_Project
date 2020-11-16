@@ -49,82 +49,38 @@
         </v-btn>
         &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
-      <br /><br />
-      <v-container>
-        <v-row>
-          <!-- START OF READ MESSAGE -->
-          <v-col cols="12" sm="2">
-            <v-sheet
-              style="background-color: transparent"
-              rounded="lg"
-              min-height="268"
-            >
-              <!-- left column -->
-            </v-sheet>
-          </v-col>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <v-card color="#385F73" dark>
+          <v-card-title
+            style="font-family: 'Dancing Script', cursive"
+            id="message-subject"
+          >
+            About
+          </v-card-title>
 
-          <v-col cols="12" sm="8">
-            <v-sheet
-              style="background-color: transparent"
-              min-height="15vh"
-              rounded="lg"
-            >
-              <v-col cols="12">
-                <v-card color="#385F73" dark>
-                  <v-card-title
-                    style="font-family: 'Dancing Script', cursive"
-                    id="message-subject"
-                  >
-                    About
-                  </v-card-title>
-
-                  <v-card-text
-                    style="font-family: Quicksand"
-                    align="left"
-                    id="message-body"
-                  >
-                    Message in a Bottle is made by team CETD, from Chris Kim,
-                    Enoch Kumala, Tony Tan, and DJ Vu.
-                  </v-card-text>
-                </v-card>
-
-                <br /><br />
-              </v-col>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-container>
+          <v-card-text
+            style="font-family: Quicksand"
+            align="left"
+            id="message-body"
+          >
+            Message in a Bottle is made by Team CETD, from Chris Kim, Enoch
+            Kumala, Tony Tan, and DJ Yu.
+          </v-card-text>
+        </v-card>
+        <v-spacer></v-spacer>
+      </v-radio-group>
       <br />
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="5">
-                <v-sheet rounded="lg">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <v-col cols="12">
-                    <amplify-sign-out
-                      style="--amplify-font-family: Quicksand"
-                      @click="persist()"
-                    ></amplify-sign-out>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="5">
-                <v-sheet rounded="lg">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
-      </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <v-sheet style="background-color: transparent" rounded="lg">
+          <amplify-sign-out
+            style="--amplify-font-family: Quicksand"
+            @click="persist()"
+          ></amplify-sign-out>
+        </v-sheet>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -148,10 +104,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -159,9 +115,9 @@ export default {
           */
         },
         {
-          type: "password",
-        },
-      ],
+          type: "password"
+        }
+      ]
     };
   },
   methods: {
@@ -202,7 +158,10 @@ export default {
     persist() {
       localStorage.setItem("consent", "false");
     },
-  },
+    openSettings() {
+      this.$router.push({ path: "/settings" });
+    }
+  }
 };
 </script>
 

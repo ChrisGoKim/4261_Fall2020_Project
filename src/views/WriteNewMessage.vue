@@ -49,87 +49,44 @@
         </v-btn>
         &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
-      <br /><br />
+      <br />
+      <div class="card">
+        <v-form ref="form">
+          <v-card color="#385F73" dark>
+            <v-card-title class="justify-center">
+              Compose Your Message
+            </v-card-title>
 
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
+            <v-card-text style="padding-bottom: 0px">
+              <v-text-field
+                outlined
+                counter
+                placeholder="Subject line..."
+                id="message-subject"
+              ></v-text-field>
+              <v-textarea
+                class="ma-0"
+                outlined
+                counter
+                placeholder="Start typing here..."
+                id="message-body"
+              ></v-textarea>
+            </v-card-text>
 
-              <v-col cols="12" sm="8">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <v-col cols="12">
-                    <v-form ref="form">
-                      <v-card color="#385F73" dark>
-                        <v-card-title class="justify-center">
-                          Compose Your Message
-                        </v-card-title>
-
-                        <v-card-text style="padding-bottom: 0px">
-                          <v-text-field
-                            outlined
-                            counter
-                            placeholder="Subject line..."
-                            id="message-subject"
-                          ></v-text-field>
-                          <v-textarea
-                            class="ma-0"
-                            outlined
-                            counter
-                            placeholder="Start typing here..."
-                            id="message-body"
-                          ></v-textarea>
-                        </v-card-text>
-
-                        <v-card-actions>
-                          <v-btn outlined v-on:click="submit"> Send </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-form>
-
-                    <br /><br />
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" sm="5">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <v-col cols="12">
-                    <amplify-sign-out
-                      style="--amplify-font-family: Quicksand"
-                      @click="persist()"
-                    ></amplify-sign-out>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="5">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
+            <v-card-actions>
+              <v-btn outlined v-on:click="submit"> Send </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
       </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out
+          style="--amplify-font-family: Quicksand"
+          @click="persist()"
+        ></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -155,10 +112,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -166,9 +123,9 @@ export default {
           */
         },
         {
-          type: "password",
-        },
-      ],
+          type: "password"
+        }
+      ]
     };
   },
   beforeDestroy() {
@@ -190,7 +147,7 @@ export default {
       const params = {
         subject: messageSubject,
         body: messageBody,
-        sender: this.user,
+        sender: this.user
       };
 
       //USING API GATEWAY ENDPOINT
@@ -199,15 +156,15 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
-        .then((response) => {
+        .then(response => {
           // alert(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           alert(error.data);
           //console.log(error.response);
         });
@@ -217,13 +174,17 @@ export default {
     },
     persist() {
       localStorage.setItem("consent", "false");
-    }, // end of methods
-  },
+    } // end of methods
+  }
 };
 </script>
 
 <style>
 .v-text-field.v-text-field--enclosed .v-text-field__details {
   margin-bottom: 0px;
+}
+.card {
+  padding-left: 15%;
+  padding-right: 15%;
 }
 </style>

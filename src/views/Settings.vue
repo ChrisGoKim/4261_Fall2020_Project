@@ -63,49 +63,14 @@
         </v-btn>
         <v-spacer></v-spacer>
       </v-radio-group>
-      <br />
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="5">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="50vh"
-                >
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet
-                  style="background-color: transparent"
-                  min-height="50vh"
-                  rounded="lg"
-                >
-                  <v-col cols="12">
-                    <amplify-sign-out
-                      style="--amplify-font-family: Quicksand"
-                      @click="persist()"
-                    ></amplify-sign-out>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="5">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="50vh"
-                >
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
-      </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out
+          style="--amplify-font-family: Quicksand"
+          @click="persist()"
+        ></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -128,10 +93,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -139,16 +104,16 @@ export default {
           */
         },
         {
-          type: "password",
-        },
-      ],
+          type: "password"
+        }
+      ]
     };
   },
   methods: {
     deleteUser() {
       if (confirm("Do you really want to delete your user account?")) {
         const params = {
-          requester: this.user,
+          requester: this.user
         };
 
         //USING API GATEWAY ENDPOINT
@@ -157,14 +122,14 @@ export default {
         const myInit = {
           // OPTIONAL
           body: params,
-          headers: {}, // OPTIONAL
+          headers: {} // OPTIONAL
         };
 
         API.post(apiName, path, myInit)
-          .then((response) => {
+          .then(response => {
             response.data;
           })
-          .catch((error) => {
+          .catch(error => {
             error;
           });
 
@@ -180,8 +145,8 @@ export default {
     },
     persist() {
       localStorage.setItem("consent", "false");
-    },
-  },
+    }
+  }
 };
 </script>
 

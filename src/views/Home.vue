@@ -90,50 +90,14 @@
         </v-btn>
         <v-spacer></v-spacer>
       </v-radio-group>
-      <br />
-
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="5">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="50vh"
-                >
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet
-                  style="background-color: transparent"
-                  min-height="50vh"
-                  rounded="lg"
-                >
-                  <v-col cols="12">
-                    <amplify-sign-out
-                      style="--amplify-font-family: Quicksand"
-                      @click="persist()"
-                    ></amplify-sign-out>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="5">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="50vh"
-                >
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
-      </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out
+          style="--amplify-font-family: Quicksand"
+          @click="persist()"
+        ></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -145,7 +109,7 @@ import API from "@aws-amplify/api";
 
 export default {
   components: {
-    disclaimer: DisclaimerOverlay,
+    disclaimer: DisclaimerOverlay
   },
   name: "AuthStateApp",
   created() {
@@ -172,10 +136,10 @@ export default {
       localConsent: undefined,
       formFields: [
         {
-          type: "username",
+          type: "username"
         },
         {
-          type: "email",
+          type: "email"
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -183,10 +147,10 @@ export default {
           */
         },
         {
-          type: "password",
-        },
+          type: "password"
+        }
       ],
-      showDisclaimer: undefined,
+      showDisclaimer: undefined
     };
   },
   beforeDestroy() {
@@ -199,7 +163,7 @@ export default {
         return;
       }
       const params = {
-        user: this.user.attributes.sub,
+        user: this.user.attributes.sub
       };
 
       //USING API GATEWAY ENDPOINT
@@ -208,11 +172,11 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-        .then((response) => {
+        .then(response => {
           var inboxLen = response;
           // console.log(inboxLen);
           if (inboxLen < 1) {
@@ -221,7 +185,7 @@ export default {
             this.bHasPendingInbox = true;
           }
         })
-        .catch((error) => {
+        .catch(error => {
           alert(error);
         });
     },
@@ -236,21 +200,21 @@ export default {
       const apiName = "MiaB_1";
       const path = "/user/check-consent";
       const params = {
-        currUser: this.user.attributes.sub,
+        currUser: this.user.attributes.sub
       };
 
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-        .then((response) => {
+        .then(response => {
           this.userConsent = response.Item.consent;
           this.showDisclaimer = !this.userConsent;
         })
-        .catch((error) => {
+        .catch(error => {
           error.response;
         });
     },
@@ -261,7 +225,7 @@ export default {
         return;
       }
       const params = {
-        user: this.user.attributes.sub,
+        user: this.user.attributes.sub
       };
 
       //USING API GATEWAY ENDPOINT
@@ -270,17 +234,17 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {}, // OPTIONAL
+        headers: {} // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-        .then((response) => {
+        .then(response => {
           if (response) {
             this.showDisclaimer = false;
           }
           this.showDisclaimer = false;
         })
-        .catch((error) => {
+        .catch(error => {
           error;
         });
 
@@ -304,8 +268,8 @@ export default {
     },
     writeMessage() {
       this.$router.push({ path: "/write" });
-    }, // end of methods
-  },
+    } // end of methods
+  }
 };
 </script>
 
