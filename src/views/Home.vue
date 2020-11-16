@@ -115,12 +115,12 @@ export default {
     onAuthUIStateChange((authState, authData) => {
       this.authState = authState;
       this.user = authData;
-      this.addUserGetInbox();
       if (
         localStorage.getItem("consent") == "false" &&
         localStorage.getItem("check") == "true"
       ) {
         this.showConsent();
+        this.addUserGetInbox();
       }
     });
   },
