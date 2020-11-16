@@ -9,7 +9,7 @@ export default {
   created() {
     localStorage.setItem("consent", "false");
     localStorage.setItem("check", "true");
-  }
+  },
 };
 </script>
 
@@ -19,8 +19,9 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  background-size: 100%;
+  background-size: cover;
 }
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
