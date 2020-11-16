@@ -33,6 +33,10 @@ exports.handler = async (event, context) => {
                     messageBody = messageBody.replace(offensiveWord, "[redacted]");
                 }
 
+                if (messageBody.length > 2000) {
+                    messageBody = messageBody.substring(0, 2000);
+                }
+
                 //Creates parameter based off of previous values and empty values
                 const params = {
                     TableName: "messages",

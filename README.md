@@ -1,4 +1,4 @@
-# aws-youtube
+# Message in a Bottle App
 
 ## Project setup
 ```

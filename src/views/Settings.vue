@@ -62,6 +62,8 @@
           About this app
         </v-btn>
         <v-spacer></v-spacer>
+        <amplify-sign-out @click="persist()"></amplify-sign-out>
+        <v-spacer></v-spacer>
       </v-radio-group>
       <br />
       <div>
@@ -111,8 +113,7 @@
 
 <script>
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
-// import API from "@aws-amplify/api";
-import { Auth } from "aws-amplify";
+import API from "@aws-amplify/api";
 
 export default {
   name: "AuthStateApp",
@@ -147,27 +148,26 @@ export default {
   methods: {
     deleteUser() {
       if (confirm("Do you really want to delete your user account?")) {
-        Auth.signOut({ global: true });
+        const params = {
+          requester: this.user,
+        };
 
         //USING API GATEWAY ENDPOINT
-        // const params = {
-        //   requester: this.user,
-        // };
-        // const apiName = "MiaB_1";
-        // const path = "/user/delete-user";
-        // const myInit = {
-        //   // OPTIONAL
-        //   body: params,
-        //   headers: {}, // OPTIONAL
-        // };
+        const apiName = "MiaB_1";
+        const path = "/user/delete-user";
+        const myInit = {
+          // OPTIONAL
+          body: params,
+          headers: {}, // OPTIONAL
+        };
 
-        // API.post(apiName, path, myInit)
-        //   .then((response) => {
-        //     response.data;
-        //   })
-        //   .catch((error) => {
-        //     alert(error);
-        //   });
+        API.post(apiName, path, myInit)
+          .then((response) => {
+            response.data;
+          })
+          .catch((error) => {
+            error;
+          });
 
         alert("User deleted!");
       }

@@ -12,6 +12,7 @@
       <amplify-sign-in
         header-text="Message in a Bottle"
         slot="sign-in"
+        @click="check()"
       ></amplify-sign-in>
       <amplify-sign-up
         slot="sign-up"
@@ -128,6 +129,11 @@
           </v-container>
         </v-main>
       </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out @click="persist()"></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -147,10 +153,14 @@ export default {
       this.authState = authState;
       this.user = authData;
       this.addUserGetInbox();
+      this.localConsent = localStorage.getItem("consent");
+      if (
+        this.localConsent == "false" &&
+        localStorage.getItem("check") == "true"
+      ) {
+        this.showConsent();
+      }
     });
-
-    // TODO: Create lambda function and check if user has consented or not
-    this.showDisclaimer = false;
   },
   // Where we store data or create static variables
   data() {
@@ -158,6 +168,8 @@ export default {
       user: undefined,
       authState: undefined,
       bHasPendingInbox: false,
+      userConsent: undefined,
+      localConsent: undefined,
       formFields: [
         {
           type: "username",
@@ -174,7 +186,7 @@ export default {
           type: "password",
         },
       ],
-      showDisclaimer: false,
+      showDisclaimer: undefined,
     };
   },
   beforeDestroy() {
@@ -213,6 +225,68 @@ export default {
           alert(error);
         });
     },
+    showConsent() {
+      if (!this.user) {
+        // console.log("cant find a user");
+        this.showDisclaimer = false;
+        return;
+      }
+
+      // USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/user/check-consent";
+      const params = {
+        currUser: this.user.attributes.sub,
+      };
+
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {}, // OPTIONAL
+      };
+
+      API.put(apiName, path, myInit)
+        .then((response) => {
+          this.userConsent = response.Item.consent;
+          this.showDisclaimer = !this.userConsent;
+        })
+        .catch((error) => {
+          error.response;
+        });
+    },
+    agree() {
+      // TODO: Change user's showDisclaimer to false
+      if (!this.user) {
+        // console.log("cant find a user");
+        return;
+      }
+      const params = {
+        user: this.user.attributes.sub,
+      };
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/user/consent-agree";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {}, // OPTIONAL
+      };
+
+      API.put(apiName, path, myInit)
+        .then((response) => {
+          if (response) {
+            this.showDisclaimer = false;
+          }
+          this.showDisclaimer = false;
+        })
+        .catch((error) => {
+          error;
+        });
+
+      localStorage.setItem("consent", "true");
+      localStorage.setItem("check", "false");
+    },
     readMessage() {
       this.$router.push({ path: "/inbox" });
     },
@@ -221,6 +295,12 @@ export default {
     },
     openSettings() {
       this.$router.push({ path: "/settings" });
+    },
+    persist() {
+      localStorage.setItem("consent", "false");
+    },
+    check() {
+      localStorage.setItem("check", "true");
     },
     writeMessage() {
       this.$router.push({ path: "/write" });
@@ -236,5 +316,10 @@ amplify-authenticator {
   align-items: center;
   flex: 1;
   height: 100vh;
+  background-color: aliceblue;
+  font-family: "Raleway", "Open Sans", "sans-serif";
+
+  --amplify-font-family: "typography-font-family";
+  --amplify-primary-color: cornflowerblue;
 }
 </style>

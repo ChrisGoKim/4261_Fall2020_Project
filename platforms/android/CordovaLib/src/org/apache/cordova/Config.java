@@ -48,7 +48,7 @@ public class Config {
 
     public static String getStartUrl() {
         if (parser == null) {
-            return "file:///android_asset/www/index.html";
+            return "https://messagebottle.app/";
         }
         return parser.getLaunchUrl();
     }

@@ -52,167 +52,76 @@ v-btn {
         </v-btn>
         &#8205; &#8205; &#8205; &#8205;
       </v-radio-group>
-      <br /><br />
+      <div class="card">
+        <v-card color="#385F73" dark>
+          <v-card-title
+            style="font-family: 'Dancing Script', cursive"
+            id="message-subject"
+          >
+            Read Message
+          </v-card-title>
 
-      <div>
-        <v-main>
-          <v-container>
-            <v-row>
-              <!-- START OF READ MESSAGE -->
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
+          <v-card-text
+            style="font-family: Quicksand"
+            align="left"
+            id="message-body"
+          >
+            See a message from your inbox
+          </v-card-text>
 
-              <v-col cols="12" sm="8">
-                <v-sheet
-                  style="background-color: transparent"
-                  min-height="15vh"
-                  rounded="lg"
-                >
-                  <v-col cols="12">
-                    <v-card color="#385F73" dark>
-                      <v-card-title
-                        style="font-family: 'Dancing Script', cursive"
-                        id="message-subject"
-                      >
-                        Read Message
-                      </v-card-title>
+          <v-card-actions v-if="bMessageOpened != true">
+            <v-btn
+              color="#1f99bf"
+              v-on:click="getInboxMessage"
+              style="font-family: Quicksand; margin-left: 5px"
+            >
+              View Message
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn
+              color="#1f99bf"
+              v-on:click="goHome"
+              style="font-family: Quicksand; margin-left: 5px"
+            >
+              Close Without Reply
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <br />
+        <v-form ref="form">
+          <v-card color="#385F73" dark>
+            <v-card-title class="justify-center">
+              Compose Your Reply
+            </v-card-title>
 
-                      <v-card-text
-                        style="font-family: Quicksand"
-                        align="left"
-                        id="message-body"
-                      >
-                        See a message from your inbox
-                      </v-card-text>
+            <v-card-text style="padding-bottom: 0px">
+              <v-text-field
+                outlined
+                counter
+                placeholder="Subject line..."
+                id="message-subject-reply"
+              ></v-text-field>
+              <v-textarea
+                class="ma-0"
+                outlined
+                counter
+                placeholder="Start typing here..."
+                id="message-body-reply"
+              ></v-textarea>
+            </v-card-text>
 
-                      <v-card-actions v-if="bMessageOpened != true">
-                        <v-btn
-                          color="#1f99bf"
-                          v-on:click="getInboxMessage"
-                          style="font-family: Quicksand; margin-right: 5px"
-                        >
-                          View Message
-                        </v-btn>
-                      </v-card-actions>
-                      <v-card-actions>
-                        <v-btn
-                          color="#1f99bf"
-                          v-on:click="goHome"
-                          style="font-family: Quicksand; margin-left: 5px"
-                        >
-                          Close
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-
-                    <br /><br />
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-
-              <!-- START OF COMPOSE MESSAGE -->
-              <v-col cols="12" sm="2">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="8">
-                <v-sheet style="background-color: transparent" rounded="lg">
-                  <v-col cols="12">
-                    <v-form ref="form">
-                      <v-card color="#385F73" dark>
-                        <v-card-title
-                          style="font-family: 'Dancing Script', cursive"
-                          class="justify-center"
-                        >
-                          Compose Your Reply
-                        </v-card-title>
-
-                        <v-card-text style="padding-bottom: 0px">
-                          <v-text-field
-                            style="font-family: Quicksand"
-                            outlined
-                            counter
-                            placeholder="Subject line..."
-                            id="message-subject-reply"
-                          ></v-text-field>
-                          <v-textarea
-                            style="font-family: Quicksand"
-                            class="ma-0"
-                            outlined
-                            counter
-                            placeholder="Start typing here..."
-                            id="message-body-reply"
-                          ></v-textarea>
-                        </v-card-text>
-
-                        <v-card-actions v-if="bGotMessage">
-                          <v-btn outlined v-on:click="reply"> Send </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-form>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="100"
-                >
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" sm="5">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="50vh"
-                >
-                  <!-- left column -->
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="2">
-                <v-sheet
-                  style="background-color: transparent"
-                  min-height="50vh"
-                  rounded="lg"
-                >
-                  <v-col cols="12">
-                    <amplify-sign-out
-                      style="--amplify-font-family: Quicksand"
-                    ></amplify-sign-out>
-                  </v-col>
-                </v-sheet>
-              </v-col>
-
-              <v-col cols="12" sm="5">
-                <v-sheet
-                  style="background-color: transparent"
-                  rounded="lg"
-                  min-height="50vh"
-                >
-                  <!-- right column -->
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-main>
+            <v-card-actions v-if="bGotMessage">
+              <v-btn outlined v-on:click="reply"> Send </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
       </div>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <amplify-sign-out @click="persist()"></amplify-sign-out>
+        <v-spacer></v-spacer>
+      </v-radio-group>
     </div>
   </div>
 </template>
@@ -236,6 +145,7 @@ export default {
     return {
       user: undefined,
       authState: undefined,
+      previousUID: undefined,
       uid: undefined,
       subject: undefined,
       body: undefined,
@@ -288,13 +198,13 @@ export default {
             "Subject: " + response.Item.subject;
           document.getElementById("message-body").innerHTML =
             response.Item.body;
-          this.uid = response.Item.uid;
+          this.previousUID = response.Item.uid;
           this.subject = response.Item.subject;
           this.body = response.Item.body;
           this.originalSender = response.Item.originalSender;
         })
         .catch((error) => {
-          alert(error.response);
+          error.response;
         });
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
@@ -304,6 +214,7 @@ export default {
       this.bMessageOpened = true;
     },
     goHome() {
+      this.delete();
       this.$router.push({ path: "/" });
     },
     openSettings() {
@@ -329,7 +240,7 @@ export default {
           this.receiverQueue = response.Item.receiverQueue;
         })
         .catch((error) => {
-          alert(error.response);
+          error.response;
         });
     },
     reply() {
@@ -358,17 +269,40 @@ export default {
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
         .then((response) => {
-          // alert(response.data);
+          this.uid = response.Item.uid;
+          this.updateReceiversQueue();
         })
         .catch((error) => {
-          alert(error.data);
+          error.data;
           //console.log(error.response);
         });
 
-      this.updateReceiversQueue();
-
       alert("Message sent!");
-      this.$router.push({ path: "/" });
+      this.goHome();
+    },
+    delete() {
+      const params = {
+        uid: this.previousUID,
+      };
+
+      //USING API GATEWAY ENDPOINT
+      const apiName = "MiaB_1";
+      const path = "/message/delete";
+      const myInit = {
+        // OPTIONAL
+        body: params,
+        headers: {}, // OPTIONAL
+      };
+
+      API.del(apiName, path, myInit)
+        // eslint-disable-next-line no-unused-vars
+        .then((response) => {
+          response.Item;
+        })
+        .catch((error) => {
+          error.data;
+          //console.log(error.response);
+        });
     }, // end of methods
   },
 };
@@ -378,5 +312,9 @@ export default {
 .v-card__text {
   font-size: 1.2rem !important;
   color: white !important;
+}
+.card {
+  padding-left: 15%;
+  padding-right: 15%;
 }
 </style>

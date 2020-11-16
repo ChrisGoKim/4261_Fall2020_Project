@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    localStorage.setItem("consent", "false");
+    localStorage.setItem("check", "true");
+  }
+};
+</script>
+
 <style>
 body {
   background-image: url("https://thumbs.gfycat.com/SeparateSameAmurratsnake-size_restricted.gif");
