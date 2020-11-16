@@ -16,6 +16,11 @@
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
       <v-radio-group row>
+        &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
+        &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
+        <img src="@/assets/logo.png" height="50px" />
+        <v-spacer></v-spacer>
+        <h1 style="font-family: Quicksand">Message in a Bottle</h1>
         <v-spacer></v-spacer>
         <v-btn
           style="font-family: Quicksand"
