@@ -62,8 +62,6 @@
           About this app
         </v-btn>
         <v-spacer></v-spacer>
-        <amplify-sign-out @click="persist()"></amplify-sign-out>
-        <v-spacer></v-spacer>
       </v-radio-group>
       <br />
       <div>
@@ -89,6 +87,7 @@
                   <v-col cols="12">
                     <amplify-sign-out
                       style="--amplify-font-family: Quicksand"
+                      @click="persist()"
                     ></amplify-sign-out>
                   </v-col>
                 </v-sheet>
@@ -178,6 +177,9 @@ export default {
     },
     toAbout() {
       this.$router.push({ path: "/about" });
+    },
+    persist() {
+      localStorage.setItem("consent", "false");
     },
   },
 };

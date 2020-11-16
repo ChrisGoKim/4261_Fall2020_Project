@@ -303,6 +303,9 @@ export default {
           error.data;
           //console.log(error.response);
         });
+    },
+    persist() {
+      localStorage.setItem("consent", "false");
     }, // end of methods
   },
 };

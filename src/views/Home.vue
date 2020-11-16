@@ -6,7 +6,7 @@
 <template>
   <div class="home">
     <amplify-authenticator
-      style="--amplify-font-family: Quicksand"
+      style="--amplify-font-family: Quicksand; background-color: transparent"
       v-if="authState !== 'signedin'"
     >
       <amplify-sign-in

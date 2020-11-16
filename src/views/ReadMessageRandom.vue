@@ -291,6 +291,9 @@ export default {
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
+    },
+    persist() {
+      localStorage.setItem("consent", "false");
     }, // end of methods
   },
 };
