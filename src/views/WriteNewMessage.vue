@@ -1,6 +1,9 @@
 <template>
   <div class="write">
-    <amplify-authenticator v-if="authState !== 'signedin'">
+    <amplify-authenticator
+      style="--amplify-font-family: Quicksand"
+      v-if="authState !== 'signedin'"
+    >
       <amplify-sign-in
         header-text="Message in a Bottle"
         slot="sign-in"
@@ -15,7 +18,7 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <v-btn
-          style="font-family: Quicksand;"
+          style="font-family: Quicksand"
           class="mx-2"
           dark
           large
@@ -29,7 +32,7 @@
         <v-col></v-col>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         <v-btn
-          style="font-family: Quicksand;"
+          style="font-family: Quicksand"
           class="mx-2"
           dark
           large
@@ -48,13 +51,13 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
+                <v-sheet style="background-color: transparent" rounded="lg">
                   <!-- left column -->
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="8">
-                <v-sheet min-height="70vh" rounded="lg">
+                <v-sheet style="background-color: transparent" rounded="lg">
                   <v-col cols="12">
                     <v-form ref="form">
                       <v-card color="#385F73" dark>
@@ -79,9 +82,7 @@
                         </v-card-text>
 
                         <v-card-actions>
-                          <v-btn outlined v-on:click="submit">
-                            Send
-                          </v-btn>
+                          <v-btn outlined v-on:click="submit"> Send </v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-form>
@@ -92,7 +93,30 @@
               </v-col>
 
               <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
+                <v-sheet style="background-color: transparent" rounded="lg">
+                  <!-- right column -->
+                </v-sheet>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="5">
+                <v-sheet style="background-color: transparent" rounded="lg">
+                  <!-- left column -->
+                </v-sheet>
+              </v-col>
+
+              <v-col cols="12" sm="2">
+                <v-sheet style="background-color: transparent" rounded="lg">
+                  <v-col cols="12">
+                    <amplify-sign-out
+                      style="--amplify-font-family: Quicksand"
+                    ></amplify-sign-out>
+                  </v-col>
+                </v-sheet>
+              </v-col>
+
+              <v-col cols="12" sm="5">
+                <v-sheet style="background-color: transparent" rounded="lg">
                   <!-- right column -->
                 </v-sheet>
               </v-col>
@@ -100,7 +124,6 @@
           </v-container>
         </v-main>
       </div>
-      <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
 </template>
@@ -126,10 +149,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username"
+          type: "username",
         },
         {
-          type: "email"
+          type: "email",
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -137,9 +160,9 @@ export default {
           */
         },
         {
-          type: "password"
-        }
-      ]
+          type: "password",
+        },
+      ],
     };
   },
   beforeDestroy() {
@@ -161,7 +184,7 @@ export default {
       const params = {
         subject: messageSubject,
         body: messageBody,
-        sender: this.user
+        sender: this.user,
       };
 
       //USING API GATEWAY ENDPOINT
@@ -170,23 +193,23 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {} // OPTIONAL
+        headers: {}, // OPTIONAL
       };
 
       API.post(apiName, path, myInit)
         // eslint-disable-next-line no-unused-vars
-        .then(response => {
+        .then((response) => {
           // alert(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           alert(error.data);
           //console.log(error.response);
         });
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
-    } // end of methods
-  }
+    }, // end of methods
+  },
 };
 </script>
 

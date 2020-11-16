@@ -5,7 +5,10 @@
 
 <template>
   <div class="home">
-    <amplify-authenticator v-if="authState !== 'signedin'">
+    <amplify-authenticator
+      style="--amplify-font-family: Quicksand"
+      v-if="authState !== 'signedin'"
+    >
       <amplify-sign-in
         header-text="Message in a Bottle"
         slot="sign-in"
@@ -89,21 +92,35 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="5">
-                <v-sheet rounded="lg" min-height="50vh">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="50vh"
+                >
                   <!-- left column -->
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="2">
-                <v-sheet min-height="50vh" rounded="lg">
+                <v-sheet
+                  style="background-color: transparent"
+                  min-height="50vh"
+                  rounded="lg"
+                >
                   <v-col cols="12">
-                    <amplify-sign-out></amplify-sign-out>
+                    <amplify-sign-out
+                      style="--amplify-font-family: Quicksand"
+                    ></amplify-sign-out>
                   </v-col>
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="5">
-                <v-sheet rounded="lg" min-height="50vh">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="50vh"
+                >
                   <!-- right column -->
                 </v-sheet>
               </v-col>

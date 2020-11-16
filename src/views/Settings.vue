@@ -1,6 +1,9 @@
 <template>
   <div class="settings">
-    <amplify-authenticator v-if="authState !== 'signedin'">
+    <amplify-authenticator
+      style="--amplify-font-family: Quicksand"
+      v-if="authState !== 'signedin'"
+    >
       <amplify-sign-in
         header-text="Message in a Bottle"
         slot="sign-in"
@@ -47,27 +50,54 @@
         </v-btn>
         <v-spacer></v-spacer>
       </v-radio-group>
+      <v-radio-group row>
+        <v-spacer></v-spacer>
+        <v-btn
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          v-on:click="toAbout"
+        >
+          About this app
+        </v-btn>
+        <v-spacer></v-spacer>
+      </v-radio-group>
       <br />
       <div>
         <v-main>
           <v-container>
             <v-row>
               <v-col cols="12" sm="5">
-                <v-sheet rounded="lg" min-height="50vh">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="50vh"
+                >
                   <!-- left column -->
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="2">
-                <v-sheet min-height="50vh" rounded="lg">
+                <v-sheet
+                  style="background-color: transparent"
+                  min-height="50vh"
+                  rounded="lg"
+                >
                   <v-col cols="12">
-                    <amplify-sign-out></amplify-sign-out>
+                    <amplify-sign-out
+                      style="--amplify-font-family: Quicksand"
+                    ></amplify-sign-out>
                   </v-col>
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="5">
-                <v-sheet rounded="lg" min-height="50vh">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="50vh"
+                >
                   <!-- right column -->
                 </v-sheet>
               </v-col>
@@ -81,7 +111,7 @@
 
 <script>
 import { onAuthUIStateChange } from "@aws-amplify/ui-components";
-import API from "@aws-amplify/api";
+// import API from "@aws-amplify/api";
 import { Auth } from "aws-amplify";
 
 export default {
@@ -117,34 +147,37 @@ export default {
   methods: {
     deleteUser() {
       if (confirm("Do you really want to delete your user account?")) {
-        const params = {
-          requester: this.user,
-        };
+        Auth.signOut({ global: true });
 
         //USING API GATEWAY ENDPOINT
-        const apiName = "MiaB_1";
-        const path = "/user/delete-user";
-        const myInit = {
-          // OPTIONAL
-          body: params,
-          headers: {}, // OPTIONAL
-        };
+        // const params = {
+        //   requester: this.user,
+        // };
+        // const apiName = "MiaB_1";
+        // const path = "/user/delete-user";
+        // const myInit = {
+        //   // OPTIONAL
+        //   body: params,
+        //   headers: {}, // OPTIONAL
+        // };
 
-        API.post(apiName, path, myInit)
-          .then((response) => {
-            response.data;
-          })
-          .catch((error) => {
-            alert(error);
-          });
+        // API.post(apiName, path, myInit)
+        //   .then((response) => {
+        //     response.data;
+        //   })
+        //   .catch((error) => {
+        //     alert(error);
+        //   });
 
         alert("User deleted!");
       }
-      Auth.signOut({ global: true });
       this.$router.push({ path: "/" });
     },
     goHome() {
       this.$router.push({ path: "/" });
+    },
+    toAbout() {
+      this.$router.push({ path: "/about" });
     },
   },
 };

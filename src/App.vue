@@ -5,6 +5,13 @@
 </template>
 
 <style>
+body {
+  background-image: url("https://thumbs.gfycat.com/SeparateSameAmurratsnake-size_restricted.gif");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 100%;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

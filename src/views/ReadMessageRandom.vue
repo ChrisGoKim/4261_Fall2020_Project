@@ -7,7 +7,10 @@ v-btn {
 
 <template>
   <div class="read_random">
-    <amplify-authenticator v-if="authState !== 'signedin'">
+    <amplify-authenticator
+      style="--amplify-font-family: Quicksand"
+      v-if="authState !== 'signedin'"
+    >
       <amplify-sign-in
         header-text="Message in a Bottle"
         slot="sign-in"
@@ -57,13 +60,21 @@ v-btn {
             <v-row>
               <!-- START OF READ MESSAGE -->
               <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="268"
+                >
                   <!-- left column -->
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="8">
-                <v-sheet min-height="15vh" rounded="lg">
+                <v-sheet
+                  style="background-color: transparent"
+                  min-height="15vh"
+                  rounded="lg"
+                >
                   <v-col cols="12">
                     <v-card color="#385F73" dark>
                       <v-card-title
@@ -108,35 +119,52 @@ v-btn {
               </v-col>
 
               <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="268">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="268"
+                >
                   <!-- right column -->
                 </v-sheet>
               </v-col>
 
               <!-- START OF COMPOSE MESSAGE -->
               <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="100">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="100"
+                >
                   <!-- left column -->
                 </v-sheet>
               </v-col>
 
               <v-col cols="12" sm="8">
-                <v-sheet min-height="30vh" rounded="lg">
+                <v-sheet
+                  style="background-color: transparent"
+                  min-height="30vh"
+                  rounded="lg"
+                >
                   <v-col cols="12">
                     <v-form ref="form">
                       <v-card color="#385F73" dark>
-                        <v-card-title class="justify-center">
+                        <v-card-title
+                          style="font-family: 'Dancing Script', cursive"
+                          class="justify-center"
+                        >
                           Compose Your Reply
                         </v-card-title>
 
                         <v-card-text style="padding-bottom: 0px">
                           <v-text-field
+                            style="font-family: Quicksand"
                             outlined
                             counter
                             placeholder="Subject line..."
                             id="message-subject-reply"
                           ></v-text-field>
                           <v-textarea
+                            style="font-family: Quicksand"
                             class="ma-0"
                             outlined
                             counter
@@ -157,7 +185,46 @@ v-btn {
               </v-col>
 
               <v-col cols="12" sm="2">
-                <v-sheet rounded="lg" min-height="100">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="100"
+                >
+                  <!-- right column -->
+                </v-sheet>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="5">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="50vh"
+                >
+                  <!-- left column -->
+                </v-sheet>
+              </v-col>
+
+              <v-col cols="12" sm="2">
+                <v-sheet
+                  style="background-color: transparent"
+                  min-height="50vh"
+                  rounded="lg"
+                >
+                  <v-col cols="12">
+                    <amplify-sign-out
+                      style="--amplify-font-family: Quicksand"
+                    ></amplify-sign-out>
+                  </v-col>
+                </v-sheet>
+              </v-col>
+
+              <v-col cols="12" sm="5">
+                <v-sheet
+                  style="background-color: transparent"
+                  rounded="lg"
+                  min-height="50vh"
+                >
                   <!-- right column -->
                 </v-sheet>
               </v-col>
@@ -165,7 +232,6 @@ v-btn {
           </v-container>
         </v-main>
       </div>
-      <amplify-sign-out></amplify-sign-out>
     </div>
   </div>
 </template>
