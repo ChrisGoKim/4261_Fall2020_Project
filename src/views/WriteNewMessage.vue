@@ -115,6 +115,7 @@
                   <v-col cols="12">
                     <amplify-sign-out
                       style="--amplify-font-family: Quicksand"
+                      @click="persist()"
                     ></amplify-sign-out>
                   </v-col>
                 </v-sheet>
@@ -213,6 +214,9 @@ export default {
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
+    },
+    persist() {
+      localStorage.setItem("consent", "false");
     }, // end of methods
   },
 };

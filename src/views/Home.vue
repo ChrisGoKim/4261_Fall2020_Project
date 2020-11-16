@@ -115,6 +115,7 @@
                   <v-col cols="12">
                     <amplify-sign-out
                       style="--amplify-font-family: Quicksand"
+                      @click="persist()"
                     ></amplify-sign-out>
                   </v-col>
                 </v-sheet>
@@ -133,11 +134,6 @@
           </v-container>
         </v-main>
       </div>
-      <v-radio-group row>
-        <v-spacer></v-spacer>
-        <amplify-sign-out @click="persist()"></amplify-sign-out>
-        <v-spacer></v-spacer>
-      </v-radio-group>
     </div>
   </div>
 </template>

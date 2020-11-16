@@ -95,18 +95,23 @@ v-btn {
         <br />
         <v-form ref="form">
           <v-card color="#385F73" dark>
-            <v-card-title class="justify-center">
+            <v-card-title
+              style="font-family: 'Dancing Script', cursive"
+              class="justify-center"
+            >
               Compose Your Reply
             </v-card-title>
 
             <v-card-text style="padding-bottom: 0px">
               <v-text-field
+                style="font-family: Quicksand"
                 outlined
                 counter
                 placeholder="Subject line..."
                 id="message-subject-reply"
               ></v-text-field>
               <v-textarea
+                style="font-family: Quicksand"
                 class="ma-0"
                 outlined
                 counter
@@ -116,14 +121,20 @@ v-btn {
             </v-card-text>
 
             <v-card-actions v-if="bGotMessage">
-              <v-btn outlined v-on:click="reply"> Send </v-btn>
+              <v-btn style="font-family: Quicksand" outlined v-on:click="reply">
+                Send
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
       </div>
       <v-radio-group row>
         <v-spacer></v-spacer>
-        <amplify-sign-out @click="persist()"></amplify-sign-out>
+
+        <amplify-sign-out
+          style="--amplify-font-family: Quicksand"
+          @click="persist()"
+        ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
     </div>
