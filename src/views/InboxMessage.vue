@@ -132,7 +132,6 @@ v-btn {
         <v-spacer></v-spacer>
         <amplify-sign-out
           style="--amplify-font-family: Quicksand"
-          @click="persist()"
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
@@ -317,9 +316,6 @@ export default {
           error.data;
           //console.log(error.response);
         });
-    },
-    persist() {
-      localStorage.setItem("consent", "false");
     } // end of methods
   }
 };

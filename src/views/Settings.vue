@@ -67,7 +67,6 @@
         <v-spacer></v-spacer>
         <amplify-sign-out
           style="--amplify-font-family: Quicksand"
-          @click="persist()"
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
@@ -142,9 +141,6 @@ export default {
     },
     toAbout() {
       this.$router.push({ path: "/about" });
-    },
-    persist() {
-      localStorage.setItem("consent", "false");
     }
   }
 };

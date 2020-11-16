@@ -94,7 +94,6 @@
         <v-spacer></v-spacer>
         <amplify-sign-out
           style="--amplify-font-family: Quicksand"
-          @click="persist()"
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
@@ -117,9 +116,8 @@ export default {
       this.authState = authState;
       this.user = authData;
       this.addUserGetInbox();
-      this.localConsent = localStorage.getItem("consent");
       if (
-        this.localConsent == "false" &&
+        localStorage.getItem("consent") == "false" &&
         localStorage.getItem("check") == "true"
       ) {
         this.showConsent();
@@ -133,7 +131,6 @@ export default {
       authState: undefined,
       bHasPendingInbox: false,
       userConsent: undefined,
-      localConsent: undefined,
       formFields: [
         {
           type: "username"
@@ -193,6 +190,8 @@ export default {
       if (!this.user) {
         // console.log("cant find a user");
         this.showDisclaimer = false;
+        localStorage.setItem("consent", "true");
+        localStorage.setItem("check", "false");
         return;
       }
 
@@ -213,6 +212,8 @@ export default {
         .then(response => {
           this.userConsent = response.Item.consent;
           this.showDisclaimer = !this.userConsent;
+          localStorage.setItem("consent", "true");
+          localStorage.setItem("check", "false");
         })
         .catch(error => {
           error.response;
@@ -222,6 +223,8 @@ export default {
       // TODO: Change user's showDisclaimer to false
       if (!this.user) {
         // console.log("cant find a user");
+        localStorage.setItem("consent", "true");
+        localStorage.setItem("check", "false");
         return;
       }
       const params = {
@@ -241,8 +244,12 @@ export default {
         .then(response => {
           if (response) {
             this.showDisclaimer = false;
+            localStorage.setItem("consent", "true");
+            localStorage.setItem("check", "false");
           }
           this.showDisclaimer = false;
+          localStorage.setItem("consent", "true");
+          localStorage.setItem("check", "false");
         })
         .catch(error => {
           error;
@@ -260,11 +267,9 @@ export default {
     openSettings() {
       this.$router.push({ path: "/settings" });
     },
-    persist() {
-      localStorage.setItem("consent", "false");
-    },
     check() {
       localStorage.setItem("check", "true");
+      localStorage.setItem("consent", "false");
     },
     writeMessage() {
       this.$router.push({ path: "/write" });

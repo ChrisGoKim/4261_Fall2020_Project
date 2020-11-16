@@ -76,7 +76,6 @@
         <v-sheet style="background-color: transparent" rounded="lg">
           <amplify-sign-out
             style="--amplify-font-family: Quicksand"
-            @click="persist()"
           ></amplify-sign-out>
         </v-sheet>
         <v-spacer></v-spacer>
@@ -154,9 +153,6 @@ export default {
     },
     toAbout() {
       this.$router.push({ path: "/about" });
-    },
-    persist() {
-      localStorage.setItem("consent", "false");
     },
     openSettings() {
       this.$router.push({ path: "/settings" });

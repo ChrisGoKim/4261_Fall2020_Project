@@ -133,7 +133,6 @@ v-btn {
         <v-spacer></v-spacer>
         <amplify-sign-out
           style="--amplify-font-family: Quicksand"
-          @click="persist()"
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
@@ -303,9 +302,6 @@ export default {
 
       alert("Message sent!");
       this.$router.push({ path: "/" });
-    },
-    persist() {
-      localStorage.setItem("consent", "false");
     } // end of methods
   }
 };
