@@ -270,5 +270,10 @@ amplify-authenticator {
   align-items: center;
   flex: 1;
   height: 100vh;
+  background-color: aliceblue;
+  font-family: 'Raleway', 'Open Sans', 'sans-serif';
+
+  --amplify-font-family: 'typography-font-family';
+  --amplify-primary-color: cornflowerblue;
 }
 </style>
