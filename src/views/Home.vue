@@ -182,8 +182,9 @@ export default {
             this.bHasPendingInbox = true;
           }
         })
+          // eslint-disable-next-line no-unused-vars
         .catch(error => {
-          alert(error);
+          //alert(error);
         });
     },
     showConsent() {

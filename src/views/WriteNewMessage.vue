@@ -169,8 +169,9 @@ export default {
             .then(response => {
               // alert(response.data);
             })
+            // eslint-disable-next-line no-unused-vars
             .catch(error => {
-              alert(error.data);
+              // alert(error.data);
               //console.log(error.response);
             });
 
