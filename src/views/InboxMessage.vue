@@ -103,13 +103,6 @@ v-btn {
             </v-card-title>
 
             <v-card-text style="padding-bottom: 0px">
-              <v-text-field
-                style="font-family: Quicksand"
-                outlined
-                counter
-                placeholder="Subject line..."
-                id="message-subject-reply"
-              ></v-text-field>
               <v-textarea
                 style="font-family: Quicksand"
                 class="ma-0"
@@ -261,9 +254,9 @@ export default {
     reply() {
       const messageSubject = "Re: " + this.subject;
       const messageBody =
-        this.body +
-        "--->" +
-        document.getElementById("message-body-reply").value;
+        document.getElementById("message-body-reply").value +
+        " <--- " +
+        this.body;
 
       const params = {
         subject: messageSubject,
