@@ -70,7 +70,7 @@ v-btn {
             align="left"
             id="message-body"
           >
-            See a message from your inbox
+            Click the "Get Inbox Message" button to get a message from your inbox...
           </v-card-text>
 
           <v-card-actions v-if="bMessageOpened != true">
@@ -79,7 +79,7 @@ v-btn {
               v-on:click="getInboxMessage"
               style="font-family: Quicksand; margin-left: 5px"
             >
-              View Message
+              Get Inbox Message
             </v-btn>
           </v-card-actions>
           <v-card-actions>
@@ -189,6 +189,8 @@ export default {
   },
   methods: {
     getInboxMessage() {
+      document.getElementById("message-body").innerHTML = "Loading...";
+
       //USING API GATEWAY ENDPOINT
       const apiName = "MiaB_1";
       const path = "/message/read-inbox";
