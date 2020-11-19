@@ -25,7 +25,7 @@ v-btn {
       <v-radio-group row>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
-        <img src="@/assets/logo.png" height="50px" />
+        <a href="/"><img src="@/assets/logo.png" height="50px" /></a>
         <v-spacer></v-spacer>
         <h1 style="font-family: Quicksand">Message in a Bottle</h1>
         <v-spacer></v-spacer>
