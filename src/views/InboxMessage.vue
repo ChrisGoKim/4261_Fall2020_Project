@@ -204,16 +204,16 @@ export default {
           this.subject = response.Item.subject;
           this.body = response.Item.body;
           this.originalSender = response.Item.originalSender;
+
+          //Get the sender of the read message(the new recipient if a reply is made) message queue
+          //Allows user to send their reply message if there is an original sender
+          this.bGotMessage = !!this.originalSender;
+          this.bMessageOpened = true;
         })
         .catch(error => {
           error.response;
         });
 
-      //Get the sender of the read message(the new recipeint if a reply is made) message queue
-
-      //Allows user to send their reply message if there is an original sender
-      this.bGotMessage = !!this.originalSender;
-      this.bMessageOpened = true;
     },
     goHome() {
       // this.delete();
@@ -252,7 +252,7 @@ export default {
         const messageSubject = "Re: " + this.subject;
         const messageBody =
             document.getElementById("message-body-reply").value +
-            " <--- " +
+            " ---Response to: " +
             this.body;
 
         const params = {

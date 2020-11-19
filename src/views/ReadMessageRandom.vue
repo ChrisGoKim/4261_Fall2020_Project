@@ -258,7 +258,7 @@ export default {
         const messageSubject = "Re: " + this.subject;
         const messageBody =
             document.getElementById("message-body-reply").value +
-            " <--- " +
+            " ---Response to: " +
             this.body;
 
         const params = {

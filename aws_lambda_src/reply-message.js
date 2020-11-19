@@ -42,10 +42,10 @@ exports.handler = async (event, context) => {
                 }
 
 
-                // trim everything beyond 4010 characters
-                // (approx 2000 chars reply, 10 for header, 2000 prev message)
-                if (messageBody.length > 4010) {
-                    messageBody = messageBody.substring(0, 4010);
+                // trim everything beyond 4020 characters
+                // (approx 2000 chars reply, 20 for header, 2000 prev message)
+                if (messageBody.length > 4020) {
+                    messageBody = messageBody.substring(0, 4020);
                 }
 
                 // trim everything beyond 110 characters
