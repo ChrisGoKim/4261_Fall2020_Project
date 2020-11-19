@@ -105,6 +105,7 @@ exports.handler = async (event) => {
             "UserPoolId": UserPoolId
         }
 
+        await cognitoIdentity.adminUserGlobalSignOut(cognitoDeleteParams).promise();
         await cognitoIdentity.adminDeleteUser(cognitoDeleteParams).promise();
 
         body += `; successfully deleted user from AWS Cognito`

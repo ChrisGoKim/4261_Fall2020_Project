@@ -132,6 +132,7 @@ export default {
             error;
           });
 
+        localStorage.clear();
         alert("User deleted!");
       }
       this.$router.push({ path: "/" });
