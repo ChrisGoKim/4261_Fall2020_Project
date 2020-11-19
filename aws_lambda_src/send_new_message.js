@@ -29,12 +29,18 @@ exports.handler = async (event, context) => {
 
                 for (var i = 0; i < offensiveWords.length; i++) {
                     var offensiveWord = Buffer.from(offensiveWords[i], 'base64').toString();
-                    messageSubject = messageSubject.replace(offensiveWord, "[redacted]");
-                    messageBody = messageBody.replace(offensiveWord, "[redacted]");
+                    var regEx = new RegExp(offensiveWord, "ig");
+
+                    messageSubject = messageSubject.replace(regEx, "[redacted]");
+                    messageBody = messageBody.replace(regEx, "[redacted]");
                 }
 
                 if (messageBody.length > 2000) {
                     messageBody = messageBody.substring(0, 2000);
+                }
+
+                if (messageSubject.length > 200) {
+                    messageSubject = messageSubject.substring(0, 200);
                 }
 
                 //Creates parameter based off of previous values and empty values

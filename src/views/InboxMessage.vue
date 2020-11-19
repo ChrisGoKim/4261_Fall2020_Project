@@ -224,8 +224,8 @@ export default {
 
       //Get the sender of the read message(the new recipeint if a reply is made) message queue
 
-      //Allows user to send their reply message
-      this.bGotMessage = true;
+      //Allows user to send their reply message if there is an original sender
+      this.bGotMessage = !!this.originalSender;
       this.bMessageOpened = true;
     },
     goHome() {
