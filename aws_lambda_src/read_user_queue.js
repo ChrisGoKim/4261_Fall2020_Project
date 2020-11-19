@@ -29,16 +29,23 @@ exports.handler = async (event, context) => {
                     }
                 };
                 
-                q = await dynamo.get(userParams).promise();
+                var q = await dynamo.get(userParams).promise();
                 
                 var updatedQ = q.Item.queue;
-                updatedQ = updatedQ + "," + message.uid;
+                if (!updatedQ || updatedQ == "") {
+                    updatedQ = message.uid;
+                } else {
+                    updatedQ = updatedQ + "," + message.uid;
+                }
+                
+                var consent = q.Item.consent;
 
                 const params_update = {
                     TableName: "User",
                     Item: {
                         "Username": receiver,
-                        "queue": updatedQ
+                        "queue": updatedQ,
+                        "consent": consent
                     }
                 };
 
