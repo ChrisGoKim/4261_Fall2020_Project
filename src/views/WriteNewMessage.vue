@@ -63,6 +63,7 @@
                 counter
                 placeholder="Subject line..."
                 id="message-subject"
+                maxlength="100"
               ></v-text-field>
               <v-textarea
                 class="ma-0"
@@ -70,6 +71,7 @@
                 counter
                 placeholder="Start typing here..."
                 id="message-body"
+                maxlength="2000"
               ></v-textarea>
             </v-card-text>
 

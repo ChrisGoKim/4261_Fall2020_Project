@@ -110,6 +110,7 @@ v-btn {
                 counter
                 placeholder="Start typing here..."
                 id="message-body-reply"
+                maxlength="2000"
               ></v-textarea>
             </v-card-text>
 

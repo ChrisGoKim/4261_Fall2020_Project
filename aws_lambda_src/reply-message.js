@@ -36,12 +36,17 @@ exports.handler = async (event, context) => {
                     messageBody = messageBody.replace(regEx, "[redacted]");
                 }
 
-                if (messageBody.length > 4000) {
-                    messageBody = messageBody.substring(0, 4000);
+
+                // trim everything beyond 4010 characters
+                // (approx 2000 chars reply, 10 for header, 2000 prev message)
+                if (messageBody.length > 4010) {
+                    messageBody = messageBody.substring(0, 4010);
                 }
 
-                if (messageSubject.length > 210) {
-                    messageSubject = messageSubject.substring(0, 210);
+                // trim everything beyond 110 characters
+                // (100 chars subject, 10 for header info)
+                if (messageSubject.length > 110) {
+                    messageSubject = messageSubject.substring(0, 110);
                 }
 
                 const newUID = context.awsRequestId

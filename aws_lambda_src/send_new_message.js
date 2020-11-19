@@ -39,8 +39,8 @@ exports.handler = async (event, context) => {
                     messageBody = messageBody.substring(0, 2000);
                 }
 
-                if (messageSubject.length > 200) {
-                    messageSubject = messageSubject.substring(0, 200);
+                if (messageSubject.length > 100) {
+                    messageSubject = messageSubject.substring(0, 100);
                 }
 
                 //Creates parameter based off of previous values and empty values
