@@ -18,7 +18,9 @@
           slot="sign-up"
           username-alias="username"
           :form-fields.prop="formFields"
-      ></amplify-sign-up>
+      >
+        <div slot="secondary-footer-content"><a href="/">Sign In</a> - <a href="https://messagebottle.app/terms" target="_blank">Terms</a> - <a href="https://messagebottle.app/privacy" target="_blank">Privacy</a></div>
+      </amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
       <disclaimer v-if="showDisclaimer"></disclaimer>
