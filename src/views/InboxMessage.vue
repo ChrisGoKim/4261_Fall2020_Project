@@ -216,7 +216,7 @@ export default {
       this.bMessageOpened = true;
     },
     goHome() {
-      this.delete();
+      // this.delete();
       this.$router.push({ path: "/" });
     },
     openSettings() {
@@ -287,30 +287,31 @@ export default {
       }
 
     },
-    delete() {
-      const params = {
-        uid: this.previousUID
-      };
-
-      //USING API GATEWAY ENDPOINT
-      const apiName = "MiaB_1";
-      const path = "/message/delete";
-      const myInit = {
-        // OPTIONAL
-        body: params,
-        headers: {} // OPTIONAL
-      };
-
-      API.del(apiName, path, myInit)
-        // eslint-disable-next-line no-unused-vars
-        .then(response => {
-          response.Item;
-        })
-        .catch(error => {
-          error.data;
-          //console.log(error.response);
-        });
-    } // end of methods
+    // delete() {
+    //   const params = {
+    //     uid: this.previousUID
+    //   };
+    //
+    //   //USING API GATEWAY ENDPOINT
+    //   const apiName = "MiaB_1";
+    //   const path = "/message/delete";
+    //   const myInit = {
+    //     // OPTIONAL
+    //     body: params,
+    //     headers: {} // OPTIONAL
+    //   };
+    //
+    //   API.del(apiName, path, myInit)
+    //     // eslint-disable-next-line no-unused-vars
+    //     .then(response => {
+    //       response.Item;
+    //     })
+    //     .catch(error => {
+    //       error.data;
+    //       //console.log(error.response);
+    //     });
+    // }
+    // end of methods
   }
 };
 </script>
