@@ -122,13 +122,6 @@ v-btn {
           </v-card>
         </v-form>
       </div>
-      <v-radio-group row>
-        <v-spacer></v-spacer>
-        <amplify-sign-out
-          style="--amplify-font-family: Quicksand"
-        ></amplify-sign-out>
-        <v-spacer></v-spacer>
-      </v-radio-group>
     </div>
   </div>
 </template>

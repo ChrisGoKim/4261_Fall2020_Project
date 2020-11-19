@@ -66,7 +66,9 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <amplify-sign-out
-          style="--amplify-font-family: Quicksand"
+            style="--amplify-primary-color: cornflowerblue;
+                  --amplify-primary-shade: #2880fd;
+                  --amplify-primary-tint: #2880fd;"
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>

@@ -74,15 +74,6 @@
         <v-spacer></v-spacer>
       </v-radio-group>
       <br />
-      <v-radio-group row>
-        <v-spacer></v-spacer>
-        <v-sheet style="background-color: transparent" rounded="lg">
-          <amplify-sign-out
-            style="--amplify-font-family: Quicksand"
-          ></amplify-sign-out>
-        </v-sheet>
-        <v-spacer></v-spacer>
-      </v-radio-group>
     </div>
   </div>
 </template>
