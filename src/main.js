@@ -23,7 +23,13 @@ API.configure({
       {
         name: "MiaB_1",
         endpoint: "https://ck03afn91l.execute-api.us-east-1.amazonaws.com/test",
-        region: "us-east-1"
+        region: "us-east-1",
+        custom_header: async () => {
+          // return { Authorization : 'token' }
+          // Alternatively, with Cognito User Pools use this:
+          // return { Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}` }
+          return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` }
+        }
       }
     ]
   }
