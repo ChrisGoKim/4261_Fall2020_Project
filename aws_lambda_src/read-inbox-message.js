@@ -89,6 +89,9 @@ exports.handler = async (event, context) => {
                         "body": "This message has been deleted by the sender. Please try again!"
                     }
                 }
+                // Delete message from database
+            } else {
+                await dynamo.delete(params).promise();
             }
 
         } else if (statusCode == '200') {
