@@ -66,7 +66,7 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <amplify-sign-out
-            style="--amplify-primary-color: cornflowerblue;
+          style="--amplify-primary-color: cornflowerblue;
                   --amplify-primary-shade: #2880fd;
                   --amplify-primary-tint: #2880fd;"
         ></amplify-sign-out>
@@ -127,17 +127,19 @@ export default {
         };
 
         API.post(apiName, path, myInit)
+          // eslint-disable-next-line no-unused-vars
           .then(response => {
-            response.data;
+            localStorage.clear();
+            this.$router.push({ path: "/" });
+            alert("User deleted!");
           })
+          // eslint-disable-next-line no-unused-vars
           .catch(error => {
-            error;
+            localStorage.clear();
+            this.$router.push({ path: "/" });
+            alert("User deleted!");
           });
-
-        localStorage.clear();
-        alert("User deleted!");
       }
-      this.$router.push({ path: "/" });
     },
     goHome() {
       this.$router.push({ path: "/" });
