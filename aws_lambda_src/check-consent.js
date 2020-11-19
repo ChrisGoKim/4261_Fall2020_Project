@@ -21,29 +21,20 @@ exports.handler = async (event, context) => {
     try {
         switch (event.httpMethod) {
             case 'PUT':
-                const message = JSON.parse(event.body);
-                var user = message.user;
-                
-                const userParams = {
+                // const message = JSON.parse(event.body);
+                // var user = message.currUser
+                const user = event.requestContext.authorizer.claims.sub;
+
+                const params = {
                     TableName: "User",
                     Key: {
                         Username : user
-                    }
+                    },
+                    ProjectionExpression: "Username, consent"
                 };
-                
-                var rowParams = await dynamo.get(userParams).promise();
-                
-                const params = {
-                    TableName: "User",
-                    Item: {
-                        Username: user,
-                        queue: rowParams.Item.queue,
-                        consent: true
-                    }
-                };
-                
-                body = await dynamo.put(params).promise();
-                
+
+                body = await dynamo.get(params).promise();
+
                 break;
             default:
                 throw new Error(`Unsupported method "${event.httpMethod}"`);

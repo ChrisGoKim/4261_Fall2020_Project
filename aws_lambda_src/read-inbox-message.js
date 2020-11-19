@@ -24,13 +24,16 @@ exports.handler = async (event, context) => {
     try {
         if (event.httpMethod == 'PUT') {
             // Get user inbox queue
-            const message = JSON.parse(event.body);
-            const inboxOwner = message.inboxOwner
+            // const message = JSON.parse(event.body);
+
+            const userId = event.requestContext.authorizer.claims.sub;
+            // const inboxOwner = message.inboxOwner
 
             const userParams = {
                 TableName: "User",
                 Key: {
-                    Username : inboxOwner.attributes.sub
+                    // Username : inboxOwner.attributes.sub
+                    Username : userId
                 }
             };
 
@@ -48,7 +51,8 @@ exports.handler = async (event, context) => {
             const queueUpdateParams = {
                 TableName: "User",
                 Key: {
-                    Username : inboxOwner.attributes.sub
+                    // Username : inboxOwner.attributes.sub
+                    Username : userId
                 },
                 UpdateExpression: "set queue = :q",
                 ExpressionAttributeValues:{

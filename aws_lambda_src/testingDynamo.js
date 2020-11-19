@@ -19,34 +19,36 @@ exports.handler = async (event, context) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers" : "Content-Type",
         "Access-Control-Allow-Origin": "http://localhost:8080",
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
     };
 
-    try {
-        switch (event.httpMethod) {
-            case 'DELETE':
-                body = await dynamo.delete(JSON.parse(event.body)).promise();
-                break;
-            case 'GET':
-                body = await dynamo.scan({TableName: event.queryStringParameters.TableName}).promise();
-                break;
-            case 'POST':
-                body = await dynamo.put(JSON.parse(event.body)).promise();
-                break;
-            case 'PUT':
-                body = await dynamo.update(JSON.parse(event.body)).promise();
-                break;
-            default:
-                throw new Error(`Unsupported method "${event.httpMethod}"`);
-        }
-    } catch (err) {
-        statusCode = '400';
-        body = err.message;
-    } finally {
-        body = JSON.stringify(body);
-    }
+    // Commented out to prevent misuse
+
+    // try {
+    //     switch (event.httpMethod) {
+    //         case 'DELETE':
+    //             body = await dynamo.delete(JSON.parse(event.body)).promise();
+    //             break;
+    //         case 'GET':
+    //             body = await dynamo.scan({ TableName: event.queryStringParameters.TableName }).promise();
+    //             break;
+    //         case 'POST':
+    //             body = await dynamo.put(JSON.parse(event.body)).promise();
+    //             break;
+    //         case 'PUT':
+    //             body = await dynamo.update(JSON.parse(event.body)).promise();
+    //             break;
+    //         default:
+    //             throw new Error(`Unsupported method "${event.httpMethod}"`);
+    //     }
+    // } catch (err) {
+    //     statusCode = '400';
+    //     body = err.message;
+    // } finally {
+    //     body = JSON.stringify(body);
+    // }
 
     return {
         statusCode,

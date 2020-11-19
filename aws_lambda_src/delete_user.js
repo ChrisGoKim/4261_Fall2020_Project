@@ -17,11 +17,14 @@ exports.handler = async (event) => {
 
     const requestBody = JSON.parse(event.body);
 
-    const Username = requestBody.requester.username;
-    const UserID = requestBody.requester.attributes.sub;
+
+    // const Username = requestBody.requester.username;
+    const Username = event.requestContext.authorizer.claims['cognito:username'];
+    // const UserID = requestBody.requester.attributes.sub;
+    const UserID = event.requestContext.authorizer.claims.sub;
     const UserPoolId = requestBody.requester.pool.userPoolId;
 
-    body = `deleting user ${UserID} (${Username})`
+    body = `deleting user ${UserID} (${Username})`;
 
     // delete sent messages from messages table
     try {

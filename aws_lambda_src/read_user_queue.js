@@ -20,24 +20,25 @@ exports.handler = async (event, context) => {
         switch (event.httpMethod) {
             case 'PUT':
                 const message = JSON.parse(event.body);
-                const receiver = message.receiverSub
-                
+                // const receiver = message.receiverSub
+                const receiver = event.requestContext.authorizer.claims.sub;
+
                 const userParams = {
                     TableName: "User",
                     Key: {
                         Username : receiver
                     }
                 };
-                
+
                 var q = await dynamo.get(userParams).promise();
-                
+
                 var updatedQ = q.Item.queue;
                 if (!updatedQ || updatedQ == "") {
                     updatedQ = message.uid;
                 } else {
                     updatedQ = updatedQ + "," + message.uid;
                 }
-                
+
                 var consent = q.Item.consent;
 
                 const params_update = {

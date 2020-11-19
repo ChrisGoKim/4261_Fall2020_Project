@@ -19,7 +19,12 @@ exports.handler = async (event, context) => {
                 const message = JSON.parse(event.body);
 
                 //Gets the metadata from event
-                const sender = message.sender.attributes.sub;
+
+                // authenticated user id
+                const sender = event.requestContext.authorizer.claims.sub;
+
+                // unverified user id
+                // const sender = message.sender.attributes.sub;
 
                 //Gets the content of the event body defined in Vue
                 var messageSubject = message.subject;

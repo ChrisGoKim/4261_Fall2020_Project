@@ -21,13 +21,25 @@ exports.handler = async (event, context) => {
     try {
         switch (event.httpMethod) {
             case 'PUT':
-                const message = JSON.parse(event.body);
-                var user = message.user
+                // const message = JSON.parse(event.body);
+
+                var user = event.requestContext.authorizer.claims.sub;
+                // var user = message.user;
+
+                const userParams = {
+                    TableName: "User",
+                    Key: {
+                        Username : user
+                    }
+                };
+
+                var rowParams = await dynamo.get(userParams).promise();
 
                 const params = {
                     TableName: "User",
                     Item: {
                         Username: user,
+                        queue: rowParams.Item.queue,
                         consent: true
                     }
                 };
