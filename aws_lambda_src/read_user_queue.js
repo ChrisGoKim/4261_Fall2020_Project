@@ -20,8 +20,7 @@ exports.handler = async (event, context) => {
         switch (event.httpMethod) {
             case 'PUT':
                 const message = JSON.parse(event.body);
-                // const receiver = message.receiverSub
-                const receiver = event.requestContext.authorizer.claims.sub;
+                const receiver = message.receiverSub;
 
                 const userParams = {
                     TableName: "User",
