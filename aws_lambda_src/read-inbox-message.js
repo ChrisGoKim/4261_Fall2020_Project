@@ -19,59 +19,90 @@ exports.handler = async (event, context) => {
         "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
     };
 
+    var uidInbox;
+
     try {
-        switch (event.httpMethod) {
-            case 'PUT':
-                const message = JSON.parse(event.body);
-                const inboxOwner = message.inboxOwner
-                
-                const userParams = {
-                    TableName: "User",
-                    Key: {
-                        Username : inboxOwner.attributes.sub
-                    }
-                };
-                
-                var q = await dynamo.get(userParams).promise();
-                
-                var queueString = q.Item.queue + "";
-                var queueArr = queueString.split(",");
-                
-                const uidInbox = queueArr[0];
-                
-                queueArr.shift();
-                queueArr = queueArr.join(",");
-                
-                //Parameters to remove the first inbox item from the queue
-                const queueUpdateParams = {
-                    TableName: "User",
-                    Key: {
-                        Username : inboxOwner.attributes.sub
-                    },
-                    UpdateExpression: "set queue = :q",
-                    ExpressionAttributeValues:{
-                        ':q': queueArr 
-                    },
-                    ReturnValues:"UPDATED_NEW"
-                };
-                //Updates the user inbox
-                await dynamo.update(queueUpdateParams).promise();
-                
+        if (event.httpMethod == 'PUT') {
+            // Get user inbox queue
+            const message = JSON.parse(event.body);
+            const inboxOwner = message.inboxOwner
 
-                const params = {
-                    TableName: "messages",
-                    Key: {
-                        uid: uidInbox
-                    }
-                };
+            const userParams = {
+                TableName: "User",
+                Key: {
+                    Username : inboxOwner.attributes.sub
+                }
+            };
 
-                body = await dynamo.get(params).promise();
-                
-                
-                break;
-            default:
-                throw new Error(`Unsupported method "${event.httpMethod}"`);
+            var q = await dynamo.get(userParams).promise();
+
+            var queueString = q.Item.queue + "";
+            var queueArr = queueString.split(",");
+
+            uidInbox = queueArr[0];
+
+            queueArr.shift();
+            queueArr = queueArr.join(",");
+
+            //Parameters to remove the first inbox item from the queue
+            const queueUpdateParams = {
+                TableName: "User",
+                Key: {
+                    Username : inboxOwner.attributes.sub
+                },
+                UpdateExpression: "set queue = :q",
+                ExpressionAttributeValues:{
+                    ':q': queueArr
+                },
+                ReturnValues:"UPDATED_NEW"
+            };
+            //Updates the user inbox
+            await dynamo.update(queueUpdateParams).promise();
+        } else {
+            throw new Error(`Unsupported method "${event.httpMethod}"`);
         }
+    } catch (err) {
+        statusCode = '400';
+        body = err.message;
+    }
+
+    try {
+        // Try to get message
+        if (uidInbox != "" && uidInbox != null && uidInbox != "undefined") {
+            const params = {
+                TableName: "messages",
+                Key: {
+                    uid: uidInbox
+                }
+            };
+
+            body = await dynamo.get(params).promise();
+
+            // If the message does not exist in database
+            if (body == "" || body == null || body.Item == null) {
+                body = {
+                    "Item": {
+                        "subject": "Message No Longer Exists",
+                        "originalSender": null,
+                        "readCounter": null,
+                        "uid": "00000000-0000-0000-0000-000000000000",
+                        "body": "This message has been deleted by the sender. Please try again!"
+                    }
+                }
+            }
+
+        } else if (statusCode == '200') {
+            body = {
+                "Item": {
+                    "subject": "No Messages Available",
+                    "originalSender": null,
+                    "readCounter": null,
+                    "uid": "00000000-0000-0000-0000-000000000000",
+                    "body": "There are currently no messages in your inbox. Send one today!"
+                }
+            }
+        }
+
     } catch (err) {
         statusCode = '400';
         body = err.message;
