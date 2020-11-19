@@ -66,6 +66,9 @@
           >
             Message in a Bottle is made by Team CETD, from Chris Kim, Enoch
             Kumala, Tony Tan, and DJ Yu.
+            <br>
+            <br>
+            <a href="https://messagebottle.app/terms" target="_blank" style="color:white">Terms of Service</a>  - <a href="https://messagebottle.app/privacy" target="_blank" style="color:white">Privacy Notice</a>
           </v-card-text>
         </v-card>
         <v-spacer></v-spacer>
