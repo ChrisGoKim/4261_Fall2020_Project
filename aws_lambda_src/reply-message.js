@@ -26,6 +26,10 @@ exports.handler = async (event, context) => {
                 var messageSubject = message.subject;
                 var messageBody = message.body;
 
+                if (!messageSubject || !messageBody) {
+                    throw new Error(`Message subject and body cannot be empty.`);
+                }
+
                 const offensiveWords = ["YmFzdGFyZA==", "Yml0Y2g=", "Y3VudA==", "ZmFnZ290", "ZnVjaw==", "bmlnZ2Vy", "c2hpdA==", "c2x1dA==", "d2hvcmU="];
 
                 for (var i = 0; i < offensiveWords.length; i++) {

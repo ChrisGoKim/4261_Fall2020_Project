@@ -145,33 +145,38 @@ export default {
       //console.log(messageSubject);
       //console.log(messageBody);
 
-      const params = {
-        subject: messageSubject,
-        body: messageBody,
-        sender: this.user
-      };
+      if (!messageSubject || !messageBody) {
+        alert("Message subject and body cannot be empty.");
 
-      //USING API GATEWAY ENDPOINT
-      const apiName = "MiaB_1";
-      const path = "/message/send";
-      const myInit = {
-        // OPTIONAL
-        body: params,
-        headers: {} // OPTIONAL
-      };
+      } else {
+        const params = {
+          subject: messageSubject,
+          body: messageBody,
+          sender: this.user
+        };
 
-      API.post(apiName, path, myInit)
-        // eslint-disable-next-line no-unused-vars
-        .then(response => {
-          // alert(response.data);
-        })
-        .catch(error => {
-          alert(error.data);
-          //console.log(error.response);
-        });
+        //USING API GATEWAY ENDPOINT
+        const apiName = "MiaB_1";
+        const path = "/message/send";
+        const myInit = {
+          // OPTIONAL
+          body: params,
+          headers: {} // OPTIONAL
+        };
 
-      alert("Message sent!");
-      this.$router.push({ path: "/" });
+        API.post(apiName, path, myInit)
+            // eslint-disable-next-line no-unused-vars
+            .then(response => {
+              // alert(response.data);
+            })
+            .catch(error => {
+              alert(error.data);
+              //console.log(error.response);
+            });
+
+        alert("Message sent!");
+        this.$router.push({ path: "/" });
+      }
     } // end of methods
   }
 };

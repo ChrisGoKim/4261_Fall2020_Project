@@ -259,43 +259,47 @@ export default {
         });
     },
     reply() {
-      const messageSubject = "Re: " + this.subject;
-      const messageBody =
-          document.getElementById("message-body-reply").value +
-          " <--- " +
-          this.body;
+      if (!document.getElementById("message-body-reply").value) {
+        alert("Message body cannot be empty.");
+      } else {
+        const messageSubject = "Re: " + this.subject;
+        const messageBody =
+            document.getElementById("message-body-reply").value +
+            " <--- " +
+            this.body;
 
-      const params = {
-        subject: messageSubject,
-        body: messageBody,
-        sender: this.user,
-        receiver: this.originalSender
-      };
+        const params = {
+          subject: messageSubject,
+          body: messageBody,
+          sender: this.user,
+          receiver: this.originalSender
+        };
 
-      //USING API GATEWAY ENDPOINT
-      const apiName = "MiaB_1";
-      const path = "/message/reply";
-      const myInit = {
-        // OPTIONAL
-        body: params,
-        headers: {} // OPTIONAL
-      };
+        //USING API GATEWAY ENDPOINT
+        const apiName = "MiaB_1";
+        const path = "/message/reply";
+        const myInit = {
+          // OPTIONAL
+          body: params,
+          headers: {} // OPTIONAL
+        };
 
-      API.post(apiName, path, myInit)
-        // eslint-disable-next-line no-unused-vars
-        .then(response => {
-          this.uid = response.Item.uid;
-          // alert(response.data);
-          //console.log(response.Item.uid)
-          this.updateReceiversQueue();
-        })
-        .catch(error => {
-          error.data;
-          //console.log(error.response);
-        });
+        API.post(apiName, path, myInit)
+            // eslint-disable-next-line no-unused-vars
+            .then(response => {
+              this.uid = response.Item.uid;
+              // alert(response.data);
+              //console.log(response.Item.uid)
+              this.updateReceiversQueue();
+            })
+            .catch(error => {
+              error.data;
+              //console.log(error.response);
+            });
 
-      alert("Message sent!");
-      this.$router.push({ path: "/" });
+        alert("Message sent!");
+        this.$router.push({ path: "/" });
+      }
     } // end of methods
   }
 };

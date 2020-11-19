@@ -25,6 +25,10 @@ exports.handler = async (event, context) => {
                 var messageSubject = message.subject;
                 var messageBody = message.body;
 
+                if (!messageSubject || !messageBody) {
+                    throw new Error(`Message subject and body cannot be empty.`);
+                }
+
                 const offensiveWords = ["YmFzdGFyZA==", "Yml0Y2g=", "Y3VudA==", "ZmFnZ290", "ZnVjaw==", "bmlnZ2Vy", "c2hpdA==", "c2x1dA==", "d2hvcmU="];
 
                 for (var i = 0; i < offensiveWords.length; i++) {
@@ -35,12 +39,12 @@ exports.handler = async (event, context) => {
                     messageBody = messageBody.replace(regEx, "[redacted]");
                 }
 
-                if (messageBody.length > 2000) {
-                    messageBody = messageBody.substring(0, 2000);
+                if (messageBody.length > 2010) {
+                    messageBody = messageBody.substring(0, 2010);
                 }
 
-                if (messageSubject.length > 100) {
-                    messageSubject = messageSubject.substring(0, 100);
+                if (messageSubject.length > 110) {
+                    messageSubject = messageSubject.substring(0, 110);
                 }
 
                 //Creates parameter based off of previous values and empty values
