@@ -1,5 +1,7 @@
 # Message in a Bottle App
-https://messagebottle.app/
+URL: https://messagebottle.app/
+
+By Chris Kim, Enoch Kumala, Tony Tan, and Dongjoo Yu
 
 ## Project setup
 ```
