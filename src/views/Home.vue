@@ -6,20 +6,26 @@
 <template>
   <div class="home">
     <amplify-authenticator
-        style="--amplify-font-family: Quicksand; background-color: transparent"
-        v-if="authState !== 'signedin'"
+      style="--amplify-font-family: Quicksand; background-color: transparent"
+      v-if="authState !== 'signedin'"
     >
       <amplify-sign-in
-          header-text="Message in a Bottle"
-          slot="sign-in"
-          @click="check()"
+        header-text="Message in a Bottle"
+        slot="sign-in"
+        @click="check()"
       ></amplify-sign-in>
       <amplify-sign-up
-          slot="sign-up"
-          username-alias="username"
-          :form-fields.prop="formFields"
+        slot="sign-up"
+        username-alias="username"
+        :form-fields.prop="formFields"
       >
-        <div slot="secondary-footer-content"><a href="/">Sign In</a> - <a href="https://messagebottle.app/terms" target="_blank">Terms</a> - <a href="https://messagebottle.app/privacy" target="_blank">Privacy</a></div>
+        <div slot="secondary-footer-content">
+          <a href="/">Sign In</a> -
+          <a href="https://messagebottle.app/terms" target="_blank">Terms</a> -
+          <a href="https://messagebottle.app/privacy" target="_blank"
+            >Privacy</a
+          >
+        </div>
       </amplify-sign-up>
     </amplify-authenticator>
     <div v-if="authState === 'signedin' && user">
@@ -27,16 +33,16 @@
       <v-radio-group row>
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
         &#8205; &#8205; &#8205; &#8205; &#8205; &#8205;
-        <a href="/"><img src="@/assets/logo.png" height="50px"/></a>
+        <a href="/"><img src="@/assets/logo.png" height="50px" /></a>
         <v-spacer></v-spacer>
         <h1 style="font-family: Quicksand">Message in a Bottle</h1>
         <v-spacer></v-spacer>
         <v-btn
-            style="font-family: Quicksand"
-            class="mx-2"
-            dark
-            large
-            v-on:click="openSettings"
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          v-on:click="openSettings"
         >
           <v-icon>mdi-wrench</v-icon>
         </v-btn>
@@ -51,11 +57,11 @@
         <v-spacer></v-spacer>
         <p>&#8205; &#8205; &#8205;</p>
         <v-btn
-            style="font-family: Quicksand"
-            class="mx-2"
-            dark
-            large
-            v-on:click="writeMessage"
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          v-on:click="writeMessage"
         >
           <v-icon>mdi-plus</v-icon>
           &#8205; New Message
@@ -66,11 +72,11 @@
         <v-spacer></v-spacer>
         <p>&#8205; &#8205; &#8205;</p>
         <v-btn
-            style="font-family: Quicksand"
-            class="mx-2"
-            dark
-            large
-            v-on:click="readMessageRandom"
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          v-on:click="readMessageRandom"
         >
           <v-icon>mdi-cached</v-icon>
           &#8205; Get Random Message
@@ -81,11 +87,11 @@
         <v-spacer></v-spacer>
         <p>&#8205; &#8205; &#8205;</p>
         <v-btn
-            style="font-family: Quicksand"
-            class="mx-2"
-            dark
-            large
-            v-on:click="readMessage"
+          style="font-family: Quicksand"
+          class="mx-2"
+          dark
+          large
+          v-on:click="readMessage"
         >
           <v-icon>mdi-format-list-bulleted-square</v-icon>
           &#8205; View Inbox
@@ -95,9 +101,12 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <amplify-sign-out
-            style="--amplify-primary-color: cornflowerblue;
-                  --amplify-primary-shade: #2880fd;
-                  --amplify-primary-tint: #2880fd;"
+          style="
+            --amplify-font-family: Quicksand;
+            --amplify-primary-color: cornflowerblue;
+            --amplify-primary-shade: #2880fd;
+            --amplify-primary-tint: #2880fd;
+          "
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
@@ -107,12 +116,12 @@
 
 <script>
 import DisclaimerOverlay from "../components/DisclaimerOverlay";
-import {onAuthUIStateChange} from "@aws-amplify/ui-components";
+import { onAuthUIStateChange } from "@aws-amplify/ui-components";
 import API from "@aws-amplify/api";
 
 export default {
   components: {
-    disclaimer: DisclaimerOverlay
+    disclaimer: DisclaimerOverlay,
   },
   name: "AuthStateApp",
   created() {
@@ -120,8 +129,8 @@ export default {
       this.authState = authState;
       this.user = authData;
       if (
-          localStorage.getItem("consent") == "false" &&
-          localStorage.getItem("check") == "true"
+        localStorage.getItem("consent") == "false" &&
+        localStorage.getItem("check") == "true"
       ) {
         this.showConsent();
         this.addUserGetInbox();
@@ -137,10 +146,10 @@ export default {
       userConsent: undefined,
       formFields: [
         {
-          type: "username"
+          type: "username",
         },
         {
-          type: "email"
+          type: "email",
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -148,10 +157,10 @@ export default {
           */
         },
         {
-          type: "password"
-        }
+          type: "password",
+        },
       ],
-      showDisclaimer: undefined
+      showDisclaimer: undefined,
     };
   },
   beforeDestroy() {
@@ -164,7 +173,7 @@ export default {
         return;
       }
       const params = {
-        user: this.user.attributes.sub
+        user: this.user.attributes.sub,
       };
 
       //USING API GATEWAY ENDPOINT
@@ -173,23 +182,23 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {} // OPTIONAL
+        headers: {}, // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-          .then(response => {
-            var inboxLen = response;
-            // console.log(inboxLen);
-            if (inboxLen < 1) {
-              this.bHasPendingInbox = false;
-            } else {
-              this.bHasPendingInbox = true;
-            }
-          })
-          // eslint-disable-next-line no-unused-vars
-          .catch(error => {
-            //alert(error);
-          });
+        .then((response) => {
+          var inboxLen = response;
+          // console.log(inboxLen);
+          if (inboxLen < 1) {
+            this.bHasPendingInbox = false;
+          } else {
+            this.bHasPendingInbox = true;
+          }
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch((error) => {
+          //alert(error);
+        });
     },
     showConsent() {
       if (!this.user) {
@@ -204,25 +213,25 @@ export default {
       const apiName = "MiaB_1";
       const path = "/user/check-consent";
       const params = {
-        currUser: this.user.attributes.sub
+        currUser: this.user.attributes.sub,
       };
 
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {} // OPTIONAL
+        headers: {}, // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-          .then(response => {
-            this.userConsent = response.Item.consent;
-            this.showDisclaimer = !this.userConsent;
-            localStorage.setItem("consent", "true");
-            localStorage.setItem("check", "false");
-          })
-          .catch(error => {
-            error.response;
-          });
+        .then((response) => {
+          this.userConsent = response.Item.consent;
+          this.showDisclaimer = !this.userConsent;
+          localStorage.setItem("consent", "true");
+          localStorage.setItem("check", "false");
+        })
+        .catch((error) => {
+          error.response;
+        });
     },
     agree() {
       // TODO: Change user's showDisclaimer to false
@@ -233,7 +242,7 @@ export default {
         return;
       }
       const params = {
-        user: this.user.attributes.sub
+        user: this.user.attributes.sub,
       };
 
       //USING API GATEWAY ENDPOINT
@@ -242,44 +251,44 @@ export default {
       const myInit = {
         // OPTIONAL
         body: params,
-        headers: {} // OPTIONAL
+        headers: {}, // OPTIONAL
       };
 
       API.put(apiName, path, myInit)
-          .then(response => {
-            if (response) {
-              this.showDisclaimer = false;
-              localStorage.setItem("consent", "true");
-              localStorage.setItem("check", "false");
-            }
+        .then((response) => {
+          if (response) {
             this.showDisclaimer = false;
             localStorage.setItem("consent", "true");
             localStorage.setItem("check", "false");
-          })
-          .catch(error => {
-            error;
-          });
+          }
+          this.showDisclaimer = false;
+          localStorage.setItem("consent", "true");
+          localStorage.setItem("check", "false");
+        })
+        .catch((error) => {
+          error;
+        });
 
       localStorage.setItem("consent", "true");
       localStorage.setItem("check", "false");
     },
     readMessage() {
-      this.$router.push({path: "/inbox"});
+      this.$router.push({ path: "/inbox" });
     },
     readMessageRandom() {
-      this.$router.push({path: "/read_random"});
+      this.$router.push({ path: "/read_random" });
     },
     openSettings() {
-      this.$router.push({path: "/settings"});
+      this.$router.push({ path: "/settings" });
     },
     check() {
       localStorage.setItem("check", "true");
       localStorage.setItem("consent", "false");
     },
     writeMessage() {
-      this.$router.push({path: "/write"});
-    } // end of methods
-  }
+      this.$router.push({ path: "/write" });
+    }, // end of methods
+  },
 };
 </script>
 

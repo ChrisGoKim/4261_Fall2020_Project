@@ -66,9 +66,12 @@
       <v-radio-group row>
         <v-spacer></v-spacer>
         <amplify-sign-out
-          style="--amplify-primary-color: cornflowerblue;
-                  --amplify-primary-shade: #2880fd;
-                  --amplify-primary-tint: #2880fd;"
+          style="
+            --amplify-font-family: Quicksand;
+            --amplify-primary-color: cornflowerblue;
+            --amplify-primary-shade: #2880fd;
+            --amplify-primary-tint: #2880fd;
+          "
         ></amplify-sign-out>
         <v-spacer></v-spacer>
       </v-radio-group>
@@ -94,10 +97,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username"
+          type: "username",
         },
         {
-          type: "email"
+          type: "email",
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -105,16 +108,16 @@ export default {
           */
         },
         {
-          type: "password"
-        }
-      ]
+          type: "password",
+        },
+      ],
     };
   },
   methods: {
     deleteUser() {
       if (confirm("Do you really want to delete your user account?")) {
         const params = {
-          requester: this.user
+          requester: this.user,
         };
 
         //USING API GATEWAY ENDPOINT
@@ -123,18 +126,18 @@ export default {
         const myInit = {
           // OPTIONAL
           body: params,
-          headers: {} // OPTIONAL
+          headers: {}, // OPTIONAL
         };
 
         API.post(apiName, path, myInit)
           // eslint-disable-next-line no-unused-vars
-          .then(response => {
+          .then((response) => {
             localStorage.clear();
             this.$router.push({ path: "/" });
             alert("User deleted!");
           })
           // eslint-disable-next-line no-unused-vars
-          .catch(error => {
+          .catch((error) => {
             localStorage.clear();
             this.$router.push({ path: "/" });
             alert("User deleted!");
@@ -146,8 +149,8 @@ export default {
     },
     toAbout() {
       this.$router.push({ path: "/about" });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -53,12 +53,16 @@
       <div class="card">
         <v-form ref="form">
           <v-card color="#385F73" dark>
-            <v-card-title class="justify-center">
+            <v-card-title
+              style="font-family: 'Dancing Script', cursive"
+              class="justify-center"
+            >
               Compose Your Message
             </v-card-title>
 
             <v-card-text style="padding-bottom: 0px">
               <v-text-field
+                style="font-family: Quicksand"
                 outlined
                 counter
                 placeholder="Subject line..."
@@ -66,6 +70,7 @@
                 maxlength="100"
               ></v-text-field>
               <v-textarea
+                style="font-family: Quicksand"
                 class="ma-0"
                 outlined
                 counter
@@ -106,10 +111,10 @@ export default {
       authState: undefined,
       formFields: [
         {
-          type: "username"
+          type: "username",
         },
         {
-          type: "email"
+          type: "email",
           /*
           label: 'Custom email Label',
           placeholder: 'custom email placeholder',
@@ -117,9 +122,9 @@ export default {
           */
         },
         {
-          type: "password"
-        }
-      ]
+          type: "password",
+        },
+      ],
     };
   },
   beforeDestroy() {
@@ -140,12 +145,11 @@ export default {
 
       if (!messageSubject || !messageBody) {
         alert("Message subject and body cannot be empty.");
-
       } else {
         const params = {
           subject: messageSubject,
           body: messageBody,
-          sender: this.user
+          sender: this.user,
         };
 
         //USING API GATEWAY ENDPOINT
@@ -154,25 +158,25 @@ export default {
         const myInit = {
           // OPTIONAL
           body: params,
-          headers: {} // OPTIONAL
+          headers: {}, // OPTIONAL
         };
 
         API.post(apiName, path, myInit)
-            // eslint-disable-next-line no-unused-vars
-            .then(response => {
-              // alert(response.data);
-            })
-            // eslint-disable-next-line no-unused-vars
-            .catch(error => {
-              // alert(error.data);
-              //console.log(error.response);
-            });
+          // eslint-disable-next-line no-unused-vars
+          .then((response) => {
+            // alert(response.data);
+          })
+          // eslint-disable-next-line no-unused-vars
+          .catch((error) => {
+            // alert(error.data);
+            //console.log(error.response);
+          });
 
         alert("Message sent!");
         this.$router.push({ path: "/" });
       }
-    } // end of methods
-  }
+    }, // end of methods
+  },
 };
 </script>
 
